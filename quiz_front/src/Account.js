@@ -6,13 +6,20 @@ class Account extends Component {
 constructor(){
     super();
     this.state={
-        passwordType:'password'
+        passwordType:'password',
+        name:'',
+        email:'',
+        password:'',
+        invalidData:true
     }
     this.showPassword = this.showPassword.bind(this);
+    this.onNameChange = this.onNameChange.bind(this);
+    this.onEmailChange = this.onEmailChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
 }
 // This function will display/hide the password typed by user 
 showPassword(){
-    if(this.state.passwordType=="password"){
+    if(this.state.passwordType === "password"){
         this.setState({
             passwordType:'text'
         });
@@ -23,6 +30,19 @@ showPassword(){
     }
 }
 //Function to validate if all the fields are are entered by user only then "Create Account" button will get enabled
+componentWillUpdate(nextProps, nextState) {
+    nextState.invalidData = !(nextState.name!=='' && nextState.email!=='' && nextState.password!=='');
+  }
+onNameChange(e){
+    this.setState({ name: e.target.value });
+}
+onEmailChange(e){
+    this.setState({ email: e.target.value });
+}
+onPasswordChange(e){
+    this.setState({ password: e.target.value });
+}
+
   render() {
     return (
       <div className="Account-Login">
@@ -36,7 +56,7 @@ showPassword(){
                     <label for="userName">Pick your username:</label>
                     </div>
                     <div className="col-xs-6">
-                    <input type="text" className="form-control fields" id="userName" placeholder="E.g. John Doe"/>
+                    <input type="text" className="form-control fields" id="userName" placeholder="E.g. John Doe" value={this.state.name} onChange={this.onNameChange}/>
                     </div>
                 </div>
                 <div className="form-group form-elements Purple-text">
@@ -44,7 +64,7 @@ showPassword(){
                     <label for="Email">Pick your email:</label>
                     </div>
                     <div className="col-xs-6">
-                    <input type="email" className="form-control fields" id="Email" placeholder="E.g. John_Doe@email.com"/>
+                    <input type="email" className="form-control fields" id="Email" placeholder="E.g. John_Doe@email.com" value={this.state.email} onChange={this.onEmailChange}/>
                     </div>
                 </div>
                 <div className="form-group form-elements Purple-text">
@@ -52,13 +72,13 @@ showPassword(){
                     <label for="Password">Pick a password:</label>
                     </div>
                     <div className="col-xs-6">
-                    <input type={this.state.passwordType} className="form-control fields" id="Password" placeholder="********"/>
+                    <input type={this.state.passwordType} className="form-control fields" id="Password" placeholder="********" value={this.state.password} onChange={this.onPasswordChange}/>
                     <label className="form-check-label checkStyle">
                     <input className="form-check-input" type="checkbox" onChange={this.showPassword}/> Show password
                     </label>
                     </div>
                 </div>
-                <input type="submit" value="Create Account" className="form-btn btn Dark-purple Button-style"/>
+                <input type="submit" value="Create Account" className="form-btn btn Dark-purple Button-style" disabled={this.state.invalidData}/>
             </form>
             </div>
         </div>
