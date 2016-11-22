@@ -1,0 +1,46 @@
+.Account-Login {
+  text-align: center;
+}
+.Dark-purple{
+ background-color: #49274a;
+}
+.Purple-text{
+  color: #94618E;
+}
+.Account-logo {
+  height: 60px;
+  float:left;
+}
+.Header {
+  height: 100px;
+  padding: 15px;
+  color: white;
+}
+.HeaderText{
+  margin-top: 0px;
+  font-size: 60px;
+}
+.Account-Login-header{
+  font-size: 45px;
+  font-weight: bold;
+}
+.Label{
+  font-size: 20px;
+}
+.form-elements{
+  padding: 25px;
+}
+.fields{
+  padding:15px;
+}
+.Button-style{
+  color: #ffffff;
+  margin-top:40px;
+} 
+.Button-style:hover{
+color: #ffffff;
+}
+.checkStyle{
+  float: left;
+  margin-top: 10px;
+}
