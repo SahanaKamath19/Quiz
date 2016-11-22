@@ -53,3 +53,6 @@ text-decoration: underline;
 .link-style:hover{
   color: #94618E;
 }
+.no-warning{
+    display:none;
+  }

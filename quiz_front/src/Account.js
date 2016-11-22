@@ -47,7 +47,7 @@ onPasswordChange(e){
 }
 //Function on click of "Create Account" should create record of the user on DB and redirect user to login page
  handleSubmit(e){
-     e.preventDefault();
+    e.preventDefault();
     axios.post("http://localhost:8080/encrypt",this.state)
     .then(function(res){
         console.log(res);
