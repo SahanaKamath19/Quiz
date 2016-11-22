@@ -1,9 +1,28 @@
 import React, { Component } from 'react';
-import headerLogo from './headerLogo.svg';
 import './App.css';
 import Header from './Header.js';
 
 class Account extends Component {
+constructor(){
+    super();
+    this.state={
+        passwordType:'password'
+    }
+    this.showPassword = this.showPassword.bind(this);
+}
+// This function will display/hide the password typed by user 
+showPassword(){
+    if(this.state.passwordType=="password"){
+        this.setState({
+            passwordType:'text'
+        });
+    }else{
+        this.setState({
+            passwordType:'password'
+        });
+    }
+}
+//Function to validate if all the fields are are entered by user only then "Create Account" button will get enabled
   render() {
     return (
       <div className="Account-Login">
@@ -33,9 +52,9 @@ class Account extends Component {
                     <label for="Password">Pick a password:</label>
                     </div>
                     <div className="col-xs-6">
-                    <input type="password" className="form-control fields" id="Password" placeholder="********"/>
+                    <input type={this.state.passwordType} className="form-control fields" id="Password" placeholder="********"/>
                     <label className="form-check-label checkStyle">
-                    <input className="form-check-input" type="checkbox"/> Show password
+                    <input className="form-check-input" type="checkbox" onChange={this.showPassword}/> Show password
                     </label>
                     </div>
                 </div>
@@ -49,6 +68,3 @@ class Account extends Component {
 }
 
 export default Account;
-
-
-//<img src={logo} className="App-logo" alt="logo" />
