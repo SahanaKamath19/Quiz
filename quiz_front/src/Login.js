@@ -1,39 +1,41 @@
 import React, { Component } from 'react';
-import headerLogo from './headerLogo.svg';
 import './App.css';
 import Header from './Header.js';
 
 class Login extends Component {
   render() {
     return (
-      <div className="Account">
+      <div className="Account-Login">
         <Header/>
-        <div className="Account-body container">
-            <h2 className="Account-header Purple-text">Create Account</h2>
-            <div className="container">
+        <div className="Login-body container">
+          <h2 className="Account-Login-header Purple-text">Login To Your Account</h2>
+          <div className="container">
             <form>
-                <div className="form-group form-elements Purple-text">
+              <div className="form-group form-elements Purple-text">
                     <div className="col-xs-6 col-form-label Label">
-                    <label for="Email">Email</label>
+                    <label for="Email">Email Address:</label>
                     </div>
                     <div className="col-xs-6">
                     <input type="email" className="form-control fields" id="Email" placeholder="E.g. John_Doe@email.com"/>
                     </div>
                 </div>
-                <div className="form-group form-elements Purple-text">
+                 <div className="form-group form-elements Purple-text">
                     <div className="col-xs-6 col-form-label Label">
-                    <label for="Password">Password</label>
+                    <label for="Password">Password:</label>
                     </div>
                     <div className="col-xs-6">
-                    <input type="password" className="form-control fields" id="Password" placeholder="********"/>
+                    <input type='password' className="form-control fields" id="Password" placeholder="********"/>
+                    <label className="form-check-label checkStyle">
+                    <input className="form-check-input" type="checkbox"/> Remember Me
+                    </label>
                     </div>
                 </div>
+                <input type="submit" value="Login" className="form-btn btn Dark-purple Button-style"/>
             </form>
-            </div>
+          </div>
         </div>
       </div>
     );
   }
 }
-
-export default Account;
+export default Login;
