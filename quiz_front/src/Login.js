@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router';
 import './App.css';
 import Header from './Header.js';
+
 
 class Login extends Component {
   render() {
@@ -10,6 +12,7 @@ class Login extends Component {
         <div className="Login-body container">
           <h2 className="Account-Login-header Purple-text">Login To Your Account</h2>
           <div className="container">
+          <div className="Purple-text">Do not have an account? <Link to="/account" className="Dark-purple-text link-style">Create Account</Link> </div>
             <form>
               <div className="form-group form-elements Purple-text">
                     <div className="col-xs-6 col-form-label Label">

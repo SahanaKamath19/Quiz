@@ -7,6 +7,9 @@
 .Purple-text{
   color: #94618E;
 }
+.Dark-purple-text{
+  color: #49274a;
+}
 .Account-logo {
   height: 60px;
   float:left;
@@ -43,4 +46,10 @@ color: #ffffff;
 .checkStyle{
   float: left;
   margin-top: 10px;
+}
+.link-style{
+text-decoration: underline;
+}
+.link-style:hover{
+  color: #94618E;
 }
