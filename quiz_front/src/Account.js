@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {browserHistory} from 'react-router';
 import './App.css';
 import Header from './Header.js';
 import axios from 'axios';
@@ -44,8 +45,9 @@ onEmailChange(e){
 onPasswordChange(e){
     this.setState({ password: e.target.value });
 }
-//Function on click of "Create Account"
+//Function on click of "Create Account" should create record of the user on DB and redirect user to login page
  handleSubmit(e){
+     e.preventDefault();
     axios.post("http://localhost:8080/encrypt",this.state)
     .then(function(res){
         console.log(res);
@@ -53,6 +55,7 @@ onPasswordChange(e){
     .catch(function(err){
         console.log(err);
     })
+     browserHistory.push('/');
    }
   render() {
     return (
