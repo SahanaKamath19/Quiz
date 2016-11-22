@@ -17,7 +17,7 @@ app.listen(8080, () => {
 //Code to communicate between 8080 and 3000 port 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,authorization");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,authorization"); // Add authorization
   next();
 });
 
@@ -79,7 +79,11 @@ app.post('/', (req,res) => {
                 .send({token:null});
             }
         });
-     })
+     }).catch(function(err) {
+  console.error(err);
+  res.status(403)
+  .send("Account not found");
+});
 })
 
 app.get('/quizHome', authorize, (req,res) => {

@@ -28,7 +28,6 @@ formSubmit(e){
     axios
       .post('http://localhost:8080/',this.state)
       .then((res) => {
-        console.log("Login res");
         console.log(res);
         if(res.status === 200){
             localStorage.authToken = res.data.token;

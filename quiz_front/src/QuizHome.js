@@ -31,7 +31,7 @@ class QuizHome extends Component{
             }
         }).catch((err)=>{
             //send user back to login page if token is invalid
-            // location.href = 'http://localhost:3000/';
+            location.href = 'http://localhost:3000/';
         })
     }
     else{
