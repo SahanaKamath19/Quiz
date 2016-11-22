@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './Header.js';
+import axios from 'axios';
 
 class Account extends Component {
 constructor(){
@@ -16,6 +17,7 @@ constructor(){
     this.onNameChange = this.onNameChange.bind(this);
     this.onEmailChange = this.onEmailChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 }
 // This function will display/hide the password typed by user 
 showPassword(){
@@ -42,7 +44,16 @@ onEmailChange(e){
 onPasswordChange(e){
     this.setState({ password: e.target.value });
 }
-
+//Function on click of "Create Account"
+ handleSubmit(e){
+    axios.post("http://localhost:8080/encrypt",this.state)
+    .then(function(res){
+        console.log(res);
+    })
+    .catch(function(err){
+        console.log(err);
+    })
+   }
   render() {
     return (
       <div className="Account-Login">
@@ -78,7 +89,7 @@ onPasswordChange(e){
                     </label>
                     </div>
                 </div>
-                <input type="submit" value="Create Account" className="form-btn btn Dark-purple Button-style" disabled={this.state.invalidData}/>
+                <input type="submit" value="Create Account" className="form-btn btn Dark-purple Button-style" disabled={this.state.invalidData} onClick={this.handleSubmit}/>
             </form>
             </div>
         </div>
