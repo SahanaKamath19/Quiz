@@ -83,7 +83,13 @@ app.post('/', (req,res) => {
 })
 
 app.get('/quizHome', authorize, (req,res) => {
-    console.log(req);
-    res.json(req.decoded.name);
+    let email = req.decoded.email;
+    Account 
+    .where({email :email})
+    .fetch()
+    .then(account=>{
+        res.json(account.attributes.name);
+        //console.log(account.attributes.name);
+    })
     //res.send(req.decoded.username);
 });
