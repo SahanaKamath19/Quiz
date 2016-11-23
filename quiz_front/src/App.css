@@ -50,7 +50,7 @@ color: #ffffff;
 .link-style{
 text-decoration: underline;
 }
-.link-style:hover{
+.link-style:hover, .link-tab:hover{
   color: #94618E;
 }
 .no-warning{
@@ -68,10 +68,10 @@ float: left;
 }
 .navbar li {
     float: left;
-    margin-left: 15px;
+    margin-left: 60px;
     line-height: 80px;
 }
-.link-style{
+.link-tab{
 color: #FFFFFF;
 font-size: 20px;
 text-decoration: none;
