@@ -38,6 +38,11 @@ const Account = bookshelf.Model.extend({
     tableName: 'userAccount',
 })
 
+
+const Question = bookshelf.Model.extend({
+    tableName: 'question',
+})
+
 //Update the database with user information
 app.post('/encrypt', (req, res) => {
     console.log("Details from account" +" "+req.body.name +" "+req.body.email +" "+ req.body.password);
@@ -95,4 +100,30 @@ app.get('/quizHome', authorize, (req,res) => {
         res.json(account.attributes.name);
         //console.log(account.attributes.name);
     })
+});
+
+//Function to get questions from DB 
+app.get('/question',(req,res)=>{
+Question
+	.fetchAll()
+	.then(question => {
+        res.json(question)
+		console.log(question.models.map(question => question.attributes))
+	})
+
+})
+//Function to add record to DB using postman
+app.post('/question', (req, res) => {
+    console.log(req.body);
+    const newQuestion = new Question({
+        question_description:req.body.question_description,
+        correct_answer:req.body.correct_answer,
+        question_complexity:req.body.question_complexity,
+        options:req.body.options
+    })
+    newQuestion.save()
+        .then(question => {
+            console.log(question)
+        })
+        res.send("Update Question");
 });
