@@ -61,18 +61,30 @@ margin-left: 43%;
 float: left;
 }
 .navbar {
-    overflow: auto;
-    float: right;
-    padding: 0 30px;
-    list-style: none;
+  overflow: auto;
+  float: right;
+  padding: 0 30px;
+  list-style: none;
 }
 .navbar li {
-    float: left;
-    margin-left: 60px;
-    line-height: 80px;
+  float: left;
+  margin-left: 60px;
+  line-height: 80px;
 }
 .link-tab{
 color: #FFFFFF;
 font-size: 20px;
 text-decoration: none;
+}
+.Instructions-header{
+  margin-top: 30px;
+  font-size: 35px;
+  font-weight: bold;
+}
+.Instructions-text{
+  margin-top: 30px;
+  font-size: 20px;
+}
+.Instructions-list{
+  margin-left: 20%;
 }
