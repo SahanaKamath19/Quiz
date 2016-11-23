@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from './Header.js';
+import HeaderTabs from './HeaderTabs.js';
 import axios from 'axios';
 
 
@@ -46,8 +46,10 @@ class QuizHome extends Component{
     else {
       return (
         <div>
-        <Header/>
-          <h1>Hello {this.state.data}!</h1>
+        <HeaderTabs/>
+          <div className="Home-page-body container">
+            <h2 className="Purple-text Account-Login-header text-center">Hello {this.state.data}!</h2>
+          </div>
         </div>
         );
     }

@@ -56,3 +56,23 @@ text-decoration: underline;
 .no-warning{
     display:none;
   }
+.header-tab{
+margin-left: 43%;
+float: left;
+}
+.navbar {
+    overflow: auto;
+    float: right;
+    padding: 0 30px;
+    list-style: none;
+}
+.navbar li {
+    float: left;
+    margin-left: 15px;
+    line-height: 80px;
+}
+.link-style{
+color: #FFFFFF;
+font-size: 20px;
+text-decoration: none;
+}

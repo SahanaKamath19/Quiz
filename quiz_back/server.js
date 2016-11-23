@@ -95,5 +95,4 @@ app.get('/quizHome', authorize, (req,res) => {
         res.json(account.attributes.name);
         //console.log(account.attributes.name);
     })
-    //res.send(req.decoded.username);
 });
