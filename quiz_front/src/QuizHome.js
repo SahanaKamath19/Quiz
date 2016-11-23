@@ -30,6 +30,7 @@ class QuizHome extends Component{
                 data:res.data
                 });
                 console.log(this.data);
+                document.getElementById("quiz-body").style.display="none" // On load question section is hidden  
             }
         }).catch((err)=>{
             //send user back to login page if token is invalid
@@ -42,13 +43,10 @@ class QuizHome extends Component{
   }
 
 //Function to execute once the user clicks on "Start Quiz" button 
-//Time out is set to 20 minutes, once the time reaches 0 the user will be directed to Result page 1200000
 startQuiz(e){
 e.preventDefault();
-setTimeout(() => { 
-  browserHistory.push('/');
-},5000
-    );
+document.getElementById("home-page-body").style.display="none";
+document.getElementById("quiz-body").style.display="block";
 }
   render(){
     if (this.state.loading) {
@@ -67,6 +65,9 @@ setTimeout(() => {
               <li className="Instructions-list">Quiz should be completed within 20 minutes</li>
             </ul>
             <input type="submit" value="Start Quiz" className="form-btn btn Dark-purple Button-style center-block" onClick={this.startQuiz}/>
+          </div>
+          <div className="Home-page-body container" id="quiz-body">
+            <h3 className="Instructions-header Dark-purple-text text-center">Questions</h3>
           </div>
         </div>
         );
