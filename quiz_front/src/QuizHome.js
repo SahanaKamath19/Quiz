@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import HeaderTabs from './HeaderTabs.js';
+import {browserHistory} from 'react-router';
 import axios from 'axios';
 
 
@@ -12,6 +13,7 @@ class QuizHome extends Component{
         loading:true, 
         auth:false
     }
+    this.startQuiz = this.startQuiz.bind(this);
   }
   componentWillMount(){
     if(localStorage.authToken !== undefined && localStorage.authToken !== null){
@@ -39,6 +41,15 @@ class QuizHome extends Component{
     }
   }
 
+//Function to execute once the user clicks on "Start Quiz" button 
+//Time out is set to 20 minutes, once the time reaches 0 the user will be directed to Result page 1200000
+startQuiz(e){
+e.preventDefault();
+setTimeout(() => { 
+  browserHistory.push('/');
+},5000
+    );
+}
   render(){
     if (this.state.loading) {
       return <div>loading ...</div>;
@@ -47,14 +58,15 @@ class QuizHome extends Component{
       return (
         <div>
         <HeaderTabs/>
-          <div className="Home-page-body container">
-            <h2 className="Purple-text Account-Login-header text-center">Hello {this.state.data}!</h2>
+        <h2 className="Purple-text Account-Login-header text-center">Hello {this.state.data}!</h2>
+          <div className="Home-page-body container" id="home-page-body">
             <h3 className="Instructions-header Dark-purple-text text-center">Instructions:</h3>
             <p className="Dark-purple-text Instructions-text text-center">This Quiz tests your knowledge on HTML, CSS, Javascript and React</p>
             <ul className="Dark-purple-text Instructions-text">
               <li className="Instructions-list">There are 30 questions. A correct answers adds one point.</li>
               <li className="Instructions-list">Quiz should be completed within 20 minutes</li>
             </ul>
+            <input type="submit" value="Start Quiz" className="form-btn btn Dark-purple Button-style center-block" onClick={this.startQuiz}/>
           </div>
         </div>
         );
