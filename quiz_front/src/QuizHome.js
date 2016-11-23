@@ -58,10 +58,10 @@ countdown(elementName, minutes, seconds){
             return (n <= 9 ? "0" + n : n);
         }
         function updateTimer(){
-            msRemaining = endTime - (+new Date);
+            msRemaining = endTime - (+new Date()); 
             if (msRemaining < 500 ) {
               // Display score section 
-                browserHistory.push('/');
+                browserHistory.push('/');// for now logout the user after 20 minutes 
             }else {
                 time = new Date(msRemaining );
                 mins = time.getUTCMinutes();
@@ -70,7 +70,7 @@ countdown(elementName, minutes, seconds){
             }
         }
          element = document.getElementById( elementName );
-         endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
+         endTime = (+new Date()) + 1000 * (60*minutes + seconds) + 500; //+new Date is similar to "number(new Date())". By using "+" date will always be number 
          updateTimer();
     }
   render(){
@@ -81,6 +81,7 @@ countdown(elementName, minutes, seconds){
       return (
         <div>
         <HeaderTabs/>
+        {/* Instructions Section*/}
         <h2 className="Purple-text Account-Login-header text-center">Hello {this.state.data}!</h2>
           <div className="Home-page-body container" id="home-page-body">
             <h3 className="Instructions-header Dark-purple-text text-center">Instructions:</h3>
@@ -91,6 +92,8 @@ countdown(elementName, minutes, seconds){
             </ul>
             <input type="submit" value="Start Quiz" className="form-btn btn Dark-purple Button-style center-block" onClick={this.startQuiz}/>
           </div>
+
+          {/* Questions Section*/}
           <div className="Home-page-body container" id="quiz-body">
             <h3 className="Instructions-header Dark-purple-text text-center">Questions</h3>
             <p>Time Remaining:</p>
