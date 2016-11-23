@@ -3,6 +3,8 @@ import './App.css';
 import HeaderTabs from './HeaderTabs.js';
 import Clock from './Clock.svg';
 import ScoreBoard from './ScoreBoard.svg';
+import ThumbUp from './ThumbUp.svg';
+import ThumbDown from './ThumbDown.svg';
 import {browserHistory} from 'react-router';
 import axios from 'axios';
 
@@ -13,7 +15,8 @@ class QuizHome extends Component{
         data:null,
         loading:true, 
         auth:false,
-        timer:''
+        correctScore:0,
+        wrongScore:0
     }
     this.startQuiz = this.startQuiz.bind(this);
     this.countdown = this.countdown.bind(this);
@@ -97,23 +100,32 @@ countdown(elementName, minutes, seconds){
 
           {/* Questions Section*/}
           <div className="Home-page-body container" id="quiz-body">
-            <h3 className="Instructions-header Dark-purple-text text-center">Questions</h3>
             <div className="row">
             <div className="col-sm-2 Score">
-              <img src={ScoreBoard} className="ScoreBoard-logo logo-height" alt="ScoreBoard"/>
-              <span className="Dark-purple-text Label fields">Score</span>
+              <div>
+                <img src={ScoreBoard} className="ScoreBoard-logo logo-height" alt="ScoreBoard"/>
+                <span className="Dark-purple-text Label fields">Score</span>
+              </div>
+              <div>
+                <img src={ThumbUp} className="ScoreBoard-correct-answer logo-height" alt="correctAnswer"/>
+                <span className="Dark-purple-text Label fields">{this.state.correctScore}</span>
+              </div>
+              <div>
+                <img src={ThumbDown} className="ScoreBoard-wrong-answer logo-height" alt="wrongAnswer"/>
+                <span className="Dark-purple-text Label fields">{this.state.wrongScore}</span>
+              </div>
             </div>
             <div className="col-sm-8 Questions">
               <p>{this.state.question_description}</p>
               <div>
-                
               </div>
             </div>
-            <div className="Timer clo-sm-2">
+            <div className="Timer col-sm-2">
               <img src={Clock} className="logo-height" alt="timer"/>
               <span id="countdown" className="Dark-purple-text Label fields"></span>
             </div>
           </div>
+           <input type="submit" value="Submit" className="form-btn btn Dark-purple Button-style center-block"/>
           </div>
         </div>
         );
