@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import HeaderTabs from './HeaderTabs.js';
+import Clock from './Clock.svg';
+import ScoreBoard from './ScoreBoard.svg';
 import {browserHistory} from 'react-router';
 import axios from 'axios';
 
@@ -61,10 +63,10 @@ countdown(elementName, minutes, seconds){
             msRemaining = endTime - (+new Date()); 
             if (msRemaining < 500 ) {
               // Display score section 
-                browserHistory.push('/');// for now logout the user after 20 minutes 
+                browserHistory.push('/'); // for now logout the user after 20 minutes 
             }else {
                 time = new Date(msRemaining );
-                mins = time.getUTCMinutes();
+                mins = time.getUTCMinutes(); //getUTCSeconds() method returns the seconds (from 0 to 59) 
                 element.innerHTML = (hours ? hours + ':' + twoDigits( mins ) : mins) + ':' + twoDigits( time.getUTCSeconds() );
                 setTimeout( updateTimer, time.getUTCMilliseconds() + 500 );
             }
@@ -96,8 +98,22 @@ countdown(elementName, minutes, seconds){
           {/* Questions Section*/}
           <div className="Home-page-body container" id="quiz-body">
             <h3 className="Instructions-header Dark-purple-text text-center">Questions</h3>
-            <p>Time Remaining:</p>
-            <div id="countdown"></div>
+            <div className="row">
+            <div className="col-sm-2 Score">
+              <img src={ScoreBoard} className="ScoreBoard-logo logo-height" alt="ScoreBoard"/>
+              <span className="Dark-purple-text Label fields">Score</span>
+            </div>
+            <div className="col-sm-8 Questions">
+              <p>{this.state.question_description}</p>
+              <div>
+                
+              </div>
+            </div>
+            <div className="Timer clo-sm-2">
+              <img src={Clock} className="logo-height" alt="timer"/>
+              <span id="countdown" className="Dark-purple-text Label fields"></span>
+            </div>
+          </div>
           </div>
         </div>
         );
