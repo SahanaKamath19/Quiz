@@ -16,10 +16,12 @@ class QuizHome extends Component{
         loading:true, 
         auth:false,
         correctScore:0,
-        wrongScore:0
+        wrongScore:0,
+        questionNumber:1
     }
     this.startQuiz = this.startQuiz.bind(this);
     this.countdown = this.countdown.bind(this);
+    this.submitAnswer= this.submitAnswer.bind(this);
   }
   componentWillMount(){
     if(localStorage.authToken !== undefined && localStorage.authToken !== null){
@@ -50,10 +52,10 @@ class QuizHome extends Component{
 
 //Function to execute once the user clicks on "Start Quiz" button 
 startQuiz(e){
-e.preventDefault();
-document.getElementById("home-page-body").style.display="none";
-document.getElementById("quiz-body").style.display="block";
-this.countdown("countdown",20,0);// calls the countdown function 
+  e.preventDefault();
+  document.getElementById("home-page-body").style.display="none";
+  document.getElementById("quiz-body").style.display="block";
+  this.countdown("countdown",20,0);// calls the countdown function 
 }
 
 //Timer Function: this function will count down from 20 minutes to 0 and displays score section 
@@ -78,6 +80,22 @@ countdown(elementName, minutes, seconds){
          endTime = (+new Date()) + 1000 * (60*minutes + seconds) + 500; //+new Date is similar to "number(new Date())". By using "+" date will always be number 
          updateTimer();
     }
+
+// Submit Answer Function 
+//increment the question number 
+//should not go above 30 questions 
+//send request to question db
+//change the state of questions based on returned value 
+// generate answer in the form of radio button based on number of items returned in option array 
+// claculate the score 
+// change the state of correct or worng answer 
+
+submitAnswer(e){
+  e.preventDefault();
+  this.setState({
+    questionNumber:this.state.questionNumber+1
+  })
+}
   render(){
     if (this.state.loading) {
       return <div>loading ...</div>;
@@ -101,10 +119,13 @@ countdown(elementName, minutes, seconds){
           {/* Questions Section*/}
           <div className="Home-page-body container" id="quiz-body">
             <div className="row">
-            <div className="col-sm-2 Score">
+            <div className="col-sm-3 Score">
               <div>
                 <img src={ScoreBoard} className="ScoreBoard-logo logo-height" alt="ScoreBoard"/>
                 <span className="Dark-purple-text Label fields">Score</span>
+              </div>
+              <div>
+                <h4 className="Dark-purple-text">Question Number:{this.state.questionNumber}</h4>
               </div>
               <div>
                 <img src={ThumbUp} className="ScoreBoard-correct-answer logo-height" alt="correctAnswer"/>
@@ -115,7 +136,7 @@ countdown(elementName, minutes, seconds){
                 <span className="Dark-purple-text Label fields">{this.state.wrongScore}</span>
               </div>
             </div>
-            <div className="col-sm-8 Questions">
+            <div className="col-sm-7 Questions">
               <p>{this.state.question_description}</p>
               <div>
               </div>
@@ -125,7 +146,7 @@ countdown(elementName, minutes, seconds){
               <span id="countdown" className="Dark-purple-text Label fields"></span>
             </div>
           </div>
-           <input type="submit" value="Submit" className="form-btn btn Dark-purple Button-style center-block"/>
+           <input type="submit" value="Submit" className="form-btn btn Dark-purple Button-style center-block" onClick={this.submitAnswer}/>
           </div>
         </div>
         );
