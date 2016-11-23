@@ -4,16 +4,17 @@ import HeaderTabs from './HeaderTabs.js';
 import {browserHistory} from 'react-router';
 import axios from 'axios';
 
-
 class QuizHome extends Component{
   constructor(){
     super();
     this.state = {
         data:null,
         loading:true, 
-        auth:false
+        auth:false,
+        timer:''
     }
     this.startQuiz = this.startQuiz.bind(this);
+    this.countdown = this.countdown.bind(this);
   }
   componentWillMount(){
     if(localStorage.authToken !== undefined && localStorage.authToken !== null){
@@ -47,7 +48,31 @@ startQuiz(e){
 e.preventDefault();
 document.getElementById("home-page-body").style.display="none";
 document.getElementById("quiz-body").style.display="block";
+this.countdown("countdown",20,0);// calls the countdown function 
 }
+
+//Timer Function: this function will count down from 20 minutes to 0 and displays score section 
+countdown(elementName, minutes, seconds){
+        let element, endTime,hours,mins, msRemaining, time;
+        function twoDigits( n ){
+            return (n <= 9 ? "0" + n : n);
+        }
+        function updateTimer(){
+            msRemaining = endTime - (+new Date);
+            if (msRemaining < 500 ) {
+              // Display score section 
+                browserHistory.push('/');
+            }else {
+                time = new Date(msRemaining );
+                mins = time.getUTCMinutes();
+                element.innerHTML = (hours ? hours + ':' + twoDigits( mins ) : mins) + ':' + twoDigits( time.getUTCSeconds() );
+                setTimeout( updateTimer, time.getUTCMilliseconds() + 500 );
+            }
+        }
+         element = document.getElementById( elementName );
+         endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
+         updateTimer();
+    }
   render(){
     if (this.state.loading) {
       return <div>loading ...</div>;
@@ -68,6 +93,8 @@ document.getElementById("quiz-body").style.display="block";
           </div>
           <div className="Home-page-body container" id="quiz-body">
             <h3 className="Instructions-header Dark-purple-text text-center">Questions</h3>
+            <p>Time Remaining:</p>
+            <div id="countdown"></div>
           </div>
         </div>
         );
