@@ -26,7 +26,6 @@ class QuizHome extends Component{
   componentWillMount(){
     if(localStorage.authToken !== undefined && localStorage.authToken !== null){
         //Add token to request header
-        console.log("auth token");
         axios
         .get('http://localhost:8080/quizHome',{headers:{'authorization':localStorage.authToken}})
         .then( (res) => {
@@ -37,7 +36,6 @@ class QuizHome extends Component{
                 auth:true,
                 data:res.data
                 });
-                console.log(this.data);
                 document.getElementById("quiz-body").style.display="none" // On load question section is hidden  
             }
         }).catch((err)=>{
@@ -56,6 +54,16 @@ startQuiz(e){
   document.getElementById("home-page-body").style.display="none";
   document.getElementById("quiz-body").style.display="block";
   this.countdown("countdown",20,0);// calls the countdown function 
+// create random number array and send request to DB using axios by incrementing ar index value so that 
+//   for (var i = 0, randomArray = []; i < 30; i++) {
+//     randomArray[i] = i;
+//   }
+//   // randomize the array
+//   randomArray.sort(function () {
+//       return Math.random() - 0.5;
+//   });
+
+// console.log(randomArray);
 }
 
 //Timer Function: this function will count down from 20 minutes to 0 and displays score section 
