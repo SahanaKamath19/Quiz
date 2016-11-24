@@ -50,6 +50,7 @@ class QuizHome extends Component{
                 data:res.data
                 });
                 document.getElementById("quiz-body").style.display="none" // On load question section is hidden
+                document.getElementById("score-body").style.display="none" //On load score section is hidden
 
                 //create random number array 
               for (var i = 1, randomArray = []; i <= 30; i++) {
@@ -80,6 +81,7 @@ class QuizHome extends Component{
 startQuiz(e){
   e.preventDefault();
   document.getElementById("home-page-body").style.display="none";
+  document.getElementById("score-body").style.display="none";
   document.getElementById("quiz-body").style.display="block";
   this.countdown("countdown",20,0);// calls the countdown function 
   
@@ -129,7 +131,8 @@ submitAnswer(e){
 
   //This function should direct user to score page once it's created
    if(this.state.questionNumber>=30){
-      browserHistory.push('/');
+     document.getElementById("score-body").style.display="block";
+     document.getElementById("quiz-body").style.display="none";
     }
 
   //Function to access first question from DB
@@ -175,8 +178,8 @@ handleChangeRadio(e){
         <div>
         <HeaderTabs/>
         {/* Instructions Section*/}
-        <h2 className="Purple-text Account-Login-header text-center">Hello {this.state.data}!</h2>
           <div className="Home-page-body container" id="home-page-body">
+          <h2 className="Purple-text Account-Login-header text-center">Hello {this.state.data}!</h2>
             <h3 className="Instructions-header Dark-purple-text text-center">Instructions:</h3>
             <p className="Dark-purple-text Instructions-text text-center">This Quiz tests your knowledge on HTML, CSS, Javascript and React</p>
             <ul className="Dark-purple-text Instructions-text">
@@ -188,6 +191,7 @@ handleChangeRadio(e){
 
           {/* Questions Section*/}
           <div className="Home-page-body container" id="quiz-body">
+          <h2 className="Purple-text Account-Login-header text-center">Hello {this.state.data}!</h2>
             <div className="row">
             <div className="col-sm-3 Score">
               <div>
@@ -217,7 +221,16 @@ handleChangeRadio(e){
           </div>
            <input type="submit" value="Submit" className="form-btn btn Dark-purple Button-style center-block submit-answer" onClick={this.submitAnswer}/>
           </div>
+
+           {/* Score Section*/}
+           <div className="Home-page-body container" id="score-body">
+            <h2 className="Purple-text Account-Login-header text-center">{this.state.data} You scored {this.state.correctScore}/30 </h2>
+            <p className="Dark-purple-text Label fields text-center">Total number of questions: {this.state.questionNumber}</p>
+            <p className="Dark-purple-text Label fields text-center">Total number of wrong answers: {this.state.wrongScore}</p>
+           </div>
+           
         </div>
+        
         );
     }
   }
