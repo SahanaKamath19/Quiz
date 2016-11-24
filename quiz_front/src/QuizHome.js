@@ -17,7 +17,9 @@ class QuizHome extends Component{
         auth:false,
         correctScore:0,
         wrongScore:0,
-        questionNumber:1
+        questionNumber:1,
+        randomArray:[],
+        questionRequest:0,
     }
     this.startQuiz = this.startQuiz.bind(this);
     this.countdown = this.countdown.bind(this);
@@ -36,7 +38,20 @@ class QuizHome extends Component{
                 auth:true,
                 data:res.data
                 });
-                document.getElementById("quiz-body").style.display="none" // On load question section is hidden  
+                document.getElementById("quiz-body").style.display="none" // On load question section is hidden
+
+                //create random number array 
+              for (var i = 0, randomArray = []; i < 30; i++) {
+                randomArray[i] = i;
+              }
+              // randomize the array
+              randomArray.sort(function () {
+                  return Math.random() - 0.5;
+              });
+              this.setState({
+                randomArray:randomArray,
+                questionRequest:randomArray[0]
+              })
             }
         }).catch((err)=>{
             //send user back to login page if token is invalid
@@ -54,16 +69,15 @@ startQuiz(e){
   document.getElementById("home-page-body").style.display="none";
   document.getElementById("quiz-body").style.display="block";
   this.countdown("countdown",20,0);// calls the countdown function 
-// create random number array and send request to DB using axios by incrementing ar index value so that 
-//   for (var i = 0, randomArray = []; i < 30; i++) {
-//     randomArray[i] = i;
-//   }
-//   // randomize the array
-//   randomArray.sort(function () {
-//       return Math.random() - 0.5;
-//   });
-
-// console.log(randomArray);
+  console.log(this.state.questionRequest);
+  
+  //not working
+  axios.get("http://localhost:8080/question",this.state.questionRequest)
+  .then(function(res){
+    console.log(res);
+  }).catch(function(err){
+        console.log(err);
+    })
 }
 
 //Timer Function: this function will count down from 20 minutes to 0 and displays score section 
@@ -88,7 +102,6 @@ countdown(elementName, minutes, seconds){
          endTime = (+new Date()) + 1000 * (60*minutes + seconds) + 500; //+new Date is similar to "number(new Date())". By using "+" date will always be number 
          updateTimer();
     }
-
 // Submit Answer Function 
 //increment the question number 
 //should not go above 30 questions 
@@ -97,7 +110,7 @@ countdown(elementName, minutes, seconds){
 // generate answer in the form of radio button based on number of items returned in option array 
 // claculate the score 
 // change the state of correct or worng answer 
-
+//and send request to DB using axios by incrementing randomArray index value so that
 submitAnswer(e){
   e.preventDefault();
   this.setState({

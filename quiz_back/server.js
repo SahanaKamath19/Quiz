@@ -104,14 +104,16 @@ app.get('/quizHome', authorize, (req,res) => {
 
 //Function to get questions from DB 
 app.get('/question',(req,res)=>{
-Question
-	.fetchAll()
-	.then(question => {
-        res.json(question)
-		console.log(question.models.map(question => question.attributes))
-	})
-
+    console.log("req.body.questionRequest:" + req.body.questionRequest);
+// Question
+//     .where({id : req.body.questionRequest})
+// 	.fetchAll()
+// 	.then(question => {
+//         res.json(question)
+// 		console.log(question.models.map(question => question.attributes))
+// 	})
 })
+
 //Function to add record to DB using postman
 app.post('/question', (req, res) => {
     console.log(req.body);
