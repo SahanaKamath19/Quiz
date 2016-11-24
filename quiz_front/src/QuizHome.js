@@ -35,6 +35,7 @@ class QuizHome extends Component{
     this.countdown = this.countdown.bind(this);
     this.submitAnswer= this.submitAnswer.bind(this);
     this.handleChangeRadio=this.handleChangeRadio.bind(this);
+    this.retake=this.retake.bind(this); 
   }
   componentWillMount(){
     if(localStorage.authToken !== undefined && localStorage.authToken !== null){
@@ -169,6 +170,10 @@ handleChangeRadio(e){
     selectedValue:e.target.value
   })
 }
+
+retake(){
+  location.reload();
+}
   render(){
     if (this.state.loading) {
       return <div>loading ...</div>;
@@ -227,6 +232,7 @@ handleChangeRadio(e){
             <h2 className="Purple-text Account-Login-header text-center">{this.state.data} You scored {this.state.correctScore}/30 </h2>
             <p className="Dark-purple-text Label fields text-center">Total number of questions: {this.state.questionNumber}</p>
             <p className="Dark-purple-text Label fields text-center">Total number of wrong answers: {this.state.wrongScore}</p>
+            <input type="submit" value="Retake Quiz" className="form-btn btn Dark-purple Button-style center-block" onClick={this.retake}/>
            </div>
            
         </div>
