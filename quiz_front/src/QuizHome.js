@@ -11,6 +11,12 @@ import axios from 'axios';
 class QuizHome extends Component{
   constructor(){
     super();
+    //data,loading and auth - stores authorization 
+    //correctScore will update each time the user submits correct answer
+    //wrongScore will increase each time user submits wrong answer 
+    //questionNumber will update each time the user hits submits
+    //randomArray will create random array between 1 to 30 
+    //questionRequest integer that will inhirit value from random array 
     this.state = {
         data:null,
         loading:true, 
@@ -43,17 +49,19 @@ class QuizHome extends Component{
                 document.getElementById("quiz-body").style.display="none" // On load question section is hidden
 
                 //create random number array 
-              for (var i = 0, randomArray = []; i < 30; i++) {
+              for (var i = 1, randomArray = []; i < 30; i++) {
                 randomArray[i] = i;
               }
               // randomize the array
               randomArray.sort(function () {
                   return Math.random() - 0.5;
               });
+              let questionRequest = randomArray[this.state.questionNumber-1];
               this.setState({
                 randomArray:randomArray,
-                questionRequest:randomArray[0]
+                questionRequest:questionRequest
               })
+              console.log(randomArray);
             }
         }).catch((err)=>{
             //send user back to login page if token is invalid
@@ -71,10 +79,9 @@ startQuiz(e){
   document.getElementById("home-page-body").style.display="none";
   document.getElementById("quiz-body").style.display="block";
   this.countdown("countdown",20,0);// calls the countdown function 
-  console.log(this.state.questionRequest);
   
   //Function to access first question from DB
-  axios.post("http://localhost:8080/questions",{questionRequested:this.state.questionRequest})
+  axios.post("http://localhost:8080/questions",{questionRequest:this.state.questionRequest})
   .then((res)=>{  // use arrow function if not the keyword this would reference to the function and return undefined value
    let question = res.data.question_description;
    let options = JSON.parse(res.data.options);
@@ -119,10 +126,25 @@ countdown(elementName, minutes, seconds){
 // change the state of correct or worng answer 
 //and send request to DB using axios by incrementing randomArray index value so that
 submitAnswer(e){
+  let randomArray =this.state.randomArray;
+  let questionRequest = randomArray[this.state.questionNumber];
+  console.log(questionRequest);
   e.preventDefault();
-  this.setState({
-    questionNumber:this.state.questionNumber+1
-  })
+  //Function to access first question from DB
+  axios.post("http://localhost:8080/questions",{questionRequest:questionRequest})
+  .then((res)=>{  // use arrow function if not the keyword this would reference to the function and return undefined value
+   let question = res.data.question_description;
+   let options = JSON.parse(res.data.options);
+    this.setState({
+      questionDescription:question,
+      options:options,
+      questionNumber:this.state.questionNumber+1,
+      questionRequest:questionRequest
+    })
+  }).catch(function(err){
+        console.log(err);
+    })
+
 }
   render(){
     if (this.state.loading) {

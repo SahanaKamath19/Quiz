@@ -105,9 +105,9 @@ app.get('/quizHome', authorize, (req,res) => {
 
 //Function to get questions from DB 
 app.post('/questions',(req,res)=>{
-    console.log(req.body.questionRequested);
+    console.log(req.body.questionRequest);
 Question
-    .where({id :req.body.questionRequested})
+    .where({id :req.body.questionRequest})
 	.fetch()
 	.then(question => {
         res.json(question.attributes)
