@@ -5,7 +5,6 @@ import Clock from './Clock.svg';
 import ScoreBoard from './ScoreBoard.svg';
 import ThumbUp from './ThumbUp.svg';
 import ThumbDown from './ThumbDown.svg';
-import {browserHistory} from 'react-router';
 import axios from 'axios';
 
 class QuizHome extends Component{
@@ -112,7 +111,9 @@ countdown(elementName, minutes, seconds){
             msRemaining = endTime - (+new Date()); 
             if (msRemaining < 500 ) {
               // Display score section 
-                browserHistory.push('/'); // for now logout the user after 20 minutes 
+                document.getElementById("score-body").style.display="block";
+                document.getElementById("quiz-body").style.display="none";
+
             }else {
                 time = new Date(msRemaining );
                 mins = time.getUTCMinutes(); //getUTCSeconds() method returns the seconds (from 0 to 59) 
@@ -217,7 +218,7 @@ retake(){
             </div>
             <div className="col-sm-7 Questions">
               <p className="Dark-purple-text Label fields">{this.state.questionDescription}</p>
-              <Options options={this.state.options} handleChangeRadio={this.handleChangeRadio}/>
+              <Options options={this.state.options} handleChangeRadio={this.handleChangeRadio}  selectedValue={this.state. selectedValue}/>
             </div>
             <div className="Timer col-sm-2">
               <img src={Clock} className="logo-height" alt="timer"/>
@@ -253,7 +254,7 @@ class Options extends React.Component{
         choice.map((item)=>{
             return(
               <li className="Option-list">
-              <input type="radio" name="options" onClick={this.props.handleChangeRadio} value={item}/>
+              <input type="radio" name="options" onClick={this.props.handleChangeRadio} value={item} checked={this.props.selectedValue === item} />
               <label className="option-list-style">{item}</label>
             </li>
           ); 
