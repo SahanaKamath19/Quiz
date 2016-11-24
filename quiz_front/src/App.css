@@ -99,5 +99,9 @@ margin: 20px;
 .option-style{
   list-style: none;
 }
+.option-list-style{
+  font-weight: normal;
+  margin-left:10px;
+}
 
     

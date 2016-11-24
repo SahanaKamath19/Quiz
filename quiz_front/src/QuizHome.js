@@ -126,11 +126,12 @@ submitAnswer(e){
   e.preventDefault();
   let randomArray =this.state.randomArray;
   let questionRequest = randomArray[this.state.questionNumber];
-  console.log(questionRequest);
+
   //This function should direct user to score page once it's created
    if(this.state.questionNumber>=30){
       browserHistory.push('/');
     }
+
   //Function to access first question from DB
   axios.post("http://localhost:8080/questions",{questionRequest:questionRequest})
   .then((res)=>{  // use arrow function if not the keyword this would reference to the function and return undefined value
@@ -148,8 +149,6 @@ submitAnswer(e){
         console.log(err);
   })
   //match the user input with actual answer
-  console.log(this.state.selectedValue);
-  console.log(this.state.correctAnswer);
   if(this.state.selectedValue===this.state.correctAnswer){
       this.setState({
         correctScore:this.state.correctScore+1
@@ -236,7 +235,7 @@ class Options extends React.Component{
             return(
               <li className="Option-list">
               <input type="radio" name="options" onClick={this.props.handleChangeRadio} value={item}/>
-              <label>{item}</label>
+              <label className="option-list-style">{item}</label>
             </li>
           ); 
         })
