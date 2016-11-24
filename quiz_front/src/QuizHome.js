@@ -187,15 +187,14 @@ submitAnswer(e){
 class Options extends React.Component{
   render(){
     let choice = this.props.options;
-    console.log(choice);
-    console.log(choice.length);
+    //Wrap the code within div as map returns more than one value 
     return (
-      <div>
+      <div> 
       {
         choice.map((item)=>{
             return(
               <li className="Option-list">
-              <input type="radio"/>
+              <input type="radio" name="options"/>
               <label>{item}</label>
             </li>
           ); 
