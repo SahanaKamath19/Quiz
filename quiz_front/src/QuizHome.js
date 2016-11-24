@@ -20,6 +20,8 @@ class QuizHome extends Component{
         questionNumber:1,
         randomArray:[],
         questionRequest:0,
+        questionDescription:"",
+        options:[]
     }
     this.startQuiz = this.startQuiz.bind(this);
     this.countdown = this.countdown.bind(this);
@@ -71,10 +73,16 @@ startQuiz(e){
   this.countdown("countdown",20,0);// calls the countdown function 
   console.log(this.state.questionRequest);
   
-  //not working
-  axios.get("http://localhost:8080/question",this.state.questionRequest)
-  .then(function(res){
-    console.log(res);
+  //Function to access first question from DB
+  axios.post("http://localhost:8080/questions",{questionRequested:this.state.questionRequest})
+  .then((res)=>{  // use arrow function if not the keyword this would reference to the function and return undefined value
+   let question = res.data[0].question_description;
+   let options = res.data[0].options;
+   console.log(options);
+    this.setState({
+      questionDescription:question,
+      options:options
+    })
   }).catch(function(err){
         console.log(err);
     })
@@ -158,7 +166,10 @@ submitAnswer(e){
               </div>
             </div>
             <div className="col-sm-7 Questions">
-              <p>{this.state.question_description}</p>
+              <p>{this.state.questionDescription}</p>
+              <ol>
+                <Options options={this.state.options}/>
+              </ol>
               <div>
               </div>
             </div>
@@ -172,6 +183,20 @@ submitAnswer(e){
         </div>
         );
     }
+  }
+}
+
+
+class Options extends React.Component{
+  render(){
+    let choice = this.props.options;
+    console.log(choice);
+    return(
+      <li className="Option-list">
+        <input type="radio"/>
+        <label>{choice}</label>
+      </li>
+    )   
   }
 }
 export default QuizHome;

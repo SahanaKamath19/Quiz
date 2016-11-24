@@ -7,7 +7,8 @@ var pg = require('pg');
 const authorize = require('./middleware/authorize');
 
 
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // parse application/json
+app.use(bodyParser.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded 
 
 app.listen(8080, () => {
     console.log('Server Started on http://localhost:8080');
@@ -103,15 +104,15 @@ app.get('/quizHome', authorize, (req,res) => {
 });
 
 //Function to get questions from DB 
-app.get('/question',(req,res)=>{
-    console.log("req.body.questionRequest:" + req.body.questionRequest);
-// Question
-//     .where({id : req.body.questionRequest})
-// 	.fetchAll()
-// 	.then(question => {
-//         res.json(question)
-// 		console.log(question.models.map(question => question.attributes))
-// 	})
+app.post('/questions',(req,res)=>{
+    console.log(req.body.questionRequested);
+Question
+    .where({id : req.body.questionRequested})
+	.fetchAll()
+	.then(question => {
+        res.json(question)
+		console.log(question.models.map(question => question.attributes))
+	})
 })
 
 //Function to add record to DB using postman
