@@ -49,7 +49,7 @@ class QuizHome extends Component{
                 document.getElementById("quiz-body").style.display="none" // On load question section is hidden
 
                 //create random number array 
-              for (var i = 1, randomArray = []; i < 30; i++) {
+              for (var i = 1, randomArray = []; i <= 30; i++) {
                 randomArray[i] = i;
               }
               // randomize the array
@@ -117,19 +117,15 @@ countdown(elementName, minutes, seconds){
          updateTimer();
     }
 // Submit Answer Function 
-//increment the question number 
-//should not go above 30 questions 
-//send request to question db
-//change the state of questions based on returned value 
-// generate answer in the form of radio button based on number of items returned in option array 
-// claculate the score 
-// change the state of correct or worng answer 
-//and send request to DB using axios by incrementing randomArray index value so that
 submitAnswer(e){
+  e.preventDefault();
   let randomArray =this.state.randomArray;
   let questionRequest = randomArray[this.state.questionNumber];
   console.log(questionRequest);
-  e.preventDefault();
+  //This function should direct user to score page once it's created
+   if(this.state.questionNumber>=30){
+      browserHistory.push('/');
+    }
   //Function to access first question from DB
   axios.post("http://localhost:8080/questions",{questionRequest:questionRequest})
   .then((res)=>{  // use arrow function if not the keyword this would reference to the function and return undefined value
@@ -144,7 +140,6 @@ submitAnswer(e){
   }).catch(function(err){
         console.log(err);
     })
-
 }
   render(){
     if (this.state.loading) {
