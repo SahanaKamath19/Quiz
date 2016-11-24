@@ -92,10 +92,12 @@ text-decoration: none;
 height: 35px;
 margin: 20px;
 }
-.Score{
-
+.submit-answer:focus{
+  outline: none;
+  color: white;
 }
-.Questions{
-
+.option-style{
+  list-style: none;
 }
+
     

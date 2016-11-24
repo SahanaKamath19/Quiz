@@ -27,11 +27,14 @@ class QuizHome extends Component{
         randomArray:[],
         questionRequest:0,
         questionDescription:"",
-        options:[]
+        options:[],
+        selectedValue:"",
+        correctAnswer:""
     }
     this.startQuiz = this.startQuiz.bind(this);
     this.countdown = this.countdown.bind(this);
     this.submitAnswer= this.submitAnswer.bind(this);
+    this.handleChangeRadio=this.handleChangeRadio.bind(this);
   }
   componentWillMount(){
     if(localStorage.authToken !== undefined && localStorage.authToken !== null){
@@ -84,9 +87,11 @@ startQuiz(e){
   axios.post("http://localhost:8080/questions",{questionRequest:this.state.questionRequest})
   .then((res)=>{  // use arrow function if not the keyword this would reference to the function and return undefined value
    let question = res.data.question_description;
+   let correctAnswer = res.data.correct_answer;
    let options = JSON.parse(res.data.options);
     this.setState({
       questionDescription:question,
+      correctAnswer:correctAnswer,
       options:options
     })
   }).catch(function(err){
@@ -131,15 +136,36 @@ submitAnswer(e){
   .then((res)=>{  // use arrow function if not the keyword this would reference to the function and return undefined value
    let question = res.data.question_description;
    let options = JSON.parse(res.data.options);
+   let correctAnswer = res.data.correct_answer;
     this.setState({
       questionDescription:question,
       options:options,
       questionNumber:this.state.questionNumber+1,
-      questionRequest:questionRequest
+      questionRequest:questionRequest,
+      correctAnswer:correctAnswer
     })
   }).catch(function(err){
         console.log(err);
-    })
+  })
+  //match the user input with actual answer
+  console.log(this.state.selectedValue);
+  console.log(this.state.correctAnswer);
+  if(this.state.selectedValue===this.state.correctAnswer){
+      this.setState({
+        correctScore:this.state.correctScore+1
+      })
+  }else{
+    this.setState({
+        wrongScore:this.state.wrongScore+1
+      })
+  }
+}
+
+//Function reas the input from user
+handleChangeRadio(e){
+  this.setState({
+    selectedValue:e.target.value
+  })
 }
   render(){
     if (this.state.loading) {
@@ -182,17 +208,15 @@ submitAnswer(e){
               </div>
             </div>
             <div className="col-sm-7 Questions">
-              <p>{this.state.questionDescription}</p>
-              <Options options={this.state.options}/>
-              <div>
-              </div>
+              <p className="Dark-purple-text Label fields">{this.state.questionDescription}</p>
+              <Options options={this.state.options} handleChangeRadio={this.handleChangeRadio}/>
             </div>
             <div className="Timer col-sm-2">
               <img src={Clock} className="logo-height" alt="timer"/>
               <span id="countdown" className="Dark-purple-text Label fields"></span>
             </div>
           </div>
-           <input type="submit" value="Submit" className="form-btn btn Dark-purple Button-style center-block" onClick={this.submitAnswer}/>
+           <input type="submit" value="Submit" className="form-btn btn Dark-purple Button-style center-block submit-answer" onClick={this.submitAnswer}/>
           </div>
         </div>
         );
@@ -206,18 +230,18 @@ class Options extends React.Component{
     let choice = this.props.options;
     //Wrap the code within div as map returns more than one value 
     return (
-      <div> 
+      <ul className="Dark-purple-text Label fields option-style"> 
       {
         choice.map((item)=>{
             return(
               <li className="Option-list">
-              <input type="radio" name="options"/>
+              <input type="radio" name="options" onClick={this.props.handleChangeRadio} value={item}/>
               <label>{item}</label>
             </li>
           ); 
         })
       }
-       </div>
+       </ul>
     )
   }
 }
