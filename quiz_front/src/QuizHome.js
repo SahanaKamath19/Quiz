@@ -76,9 +76,8 @@ startQuiz(e){
   //Function to access first question from DB
   axios.post("http://localhost:8080/questions",{questionRequested:this.state.questionRequest})
   .then((res)=>{  // use arrow function if not the keyword this would reference to the function and return undefined value
-   let question = res.data[0].question_description;
-   let options = res.data[0].options;
-   console.log(options);
+   let question = res.data.question_description;
+   let options = JSON.parse(res.data.options);
     this.setState({
       questionDescription:question,
       options:options
@@ -167,9 +166,7 @@ submitAnswer(e){
             </div>
             <div className="col-sm-7 Questions">
               <p>{this.state.questionDescription}</p>
-              <ol>
-                <Options options={this.state.options}/>
-              </ol>
+              <Options options={this.state.options}/>
               <div>
               </div>
             </div>
@@ -191,12 +188,21 @@ class Options extends React.Component{
   render(){
     let choice = this.props.options;
     console.log(choice);
-    return(
-      <li className="Option-list">
-        <input type="radio"/>
-        <label>{choice}</label>
-      </li>
-    )   
+    console.log(choice.length);
+    return (
+      <div>
+      {
+        choice.map((item)=>{
+            return(
+              <li className="Option-list">
+              <input type="radio"/>
+              <label>{item}</label>
+            </li>
+          ); 
+        })
+      }
+       </div>
+    )
   }
 }
 export default QuizHome;

@@ -107,11 +107,12 @@ app.get('/quizHome', authorize, (req,res) => {
 app.post('/questions',(req,res)=>{
     console.log(req.body.questionRequested);
 Question
-    .where({id : req.body.questionRequested})
-	.fetchAll()
+    .where({id :req.body.questionRequested})
+	.fetch()
 	.then(question => {
-        res.json(question)
-		console.log(question.models.map(question => question.attributes))
+        res.json(question.attributes)
+		console.log(question.attributes);
+        //console.log(JSON.parse(question.attributes.options));
 	})
 })
 
