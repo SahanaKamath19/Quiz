@@ -40,6 +40,12 @@ const Account = bookshelf.Model.extend({
     tableName: 'userAccount',
 })
 
+const Score = bookshelf.Model.extend({
+    tableName: 'scoreCard',
+    user: function() {
+        return this.belongsTo(userAccount)
+    }
+})
 
 const Question = bookshelf.Model.extend({
     tableName: 'question',

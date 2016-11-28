@@ -4,6 +4,7 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 import Account from './Account';
 import Login from './Login';
 import QuizHome from './QuizHome';
+import ScoreHistory from './ScoreHistory';
 import './index.css';
 
 ReactDOM.render(
@@ -11,6 +12,7 @@ ReactDOM.render(
         <Route path="/" component={Login}/>
         <Route path="/account" component={Account} />
         <Route path="/quizHome" component={QuizHome} />
+        <Route path="/score" component={ScoreHistory} />
     </Router>,
   document.getElementById('root')
 );
