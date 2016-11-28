@@ -10,7 +10,8 @@ const authorize = require('./middleware/authorize');
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded 
 
-app.listen(8080, () => {
+const Port = process.env.PORT || 8080;
+app.listen(80, () => {
     console.log('Server Started on http://localhost:8080');
     console.log('Press CTRL + C to stop server');
 });

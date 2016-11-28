@@ -231,7 +231,7 @@ retake(){
            {/* Score Section*/}
            <div className="Home-page-body container" id="score-body">
             <h2 className="Purple-text Account-Login-header text-center">{this.state.data} You scored {this.state.correctScore}/30 </h2>
-            <p className="Dark-purple-text Label fields text-center">Total number of questions: {this.state.questionNumber}</p>
+            <p className="Dark-purple-text Label fields text-center">Total number of question answered: {this.state.questionNumber}</p>
             <p className="Dark-purple-text Label fields text-center">Total number of wrong answers: {this.state.wrongScore}</p>
             <input type="submit" value="Retake Quiz" className="form-btn btn Dark-purple Button-style center-block" onClick={this.retake}/>
            </div>
