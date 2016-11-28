@@ -47,7 +47,7 @@ class QuizHome extends Component{
                 this.setState({
                 loading:false,
                 auth:true,
-                data:res.data
+                data:res.data.name
                 });
                 document.getElementById("quiz-body").style.display="none" // On load question section is hidden
                 document.getElementById("score-body").style.display="none" //On load score section is hidden

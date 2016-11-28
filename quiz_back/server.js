@@ -105,7 +105,8 @@ app.get('/quizHome', authorize, (req,res) => {
     .where({email :email})
     .fetch()
     .then(account=>{
-        res.json(account.attributes.name);
+         res.json(account.attributes);
+         //res.json(account.attributes.name);
         //console.log(account.attributes.name);
     })
 });
@@ -138,3 +139,27 @@ app.post('/question', (req, res) => {
         })
         res.send("Update Question");
 });
+
+app.post('/scores', (req, res) => {
+    console.log(req.body.id);
+    Score
+    .where({user_id:req.body.id})
+	.fetchAll()
+	.then(score => {
+        res.json(score.models.map(score => score.attributes));
+        console.log(score.models.map(score => score.attributes))
+	})
+});
+
+// app.post('/score', (req, res) => {
+//      const newScore = new Score({
+//            score: req.body.score,
+//            recent_score: req.body.recent_score,
+//            user_id: req.body.user_id
+//             })
+//             newScore.save()
+//             .then(score => {
+//             console.log(score)
+//         })
+//     res.send("Update Score");
+// });
