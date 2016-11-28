@@ -84,7 +84,7 @@ startQuiz(e){
   document.getElementById("home-page-body").style.display="none";
   document.getElementById("score-body").style.display="none";
   document.getElementById("quiz-body").style.display="block";
-  this.countdown("countdown",20,0);// calls the countdown function 
+  this.countdown("countdown",1,0);// calls the countdown function 
   
   //Function to access first question from DB
   axios.post("http://localhost:8080/questions",{questionRequest:this.state.questionRequest})
@@ -108,12 +108,15 @@ countdown(elementName, minutes, seconds){
         function twoDigits( n ){
             return (n <= 9 ? "0" + n : n);
         }
-        function updateTimer(){
+        let updateTimer=()=>{
             msRemaining = endTime - (+new Date()); 
             if (msRemaining < 500 ) {
               // Display score section 
                 document.getElementById("score-body").style.display="block";
                 document.getElementById("quiz-body").style.display="none";
+                 axios.post('http://localhost:8080/score',{state:this.state}).then((res)=>{
+                  console.log("saved the record");
+                })
 
             }else {
                 time = new Date(msRemaining );
