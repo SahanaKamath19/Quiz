@@ -84,7 +84,7 @@ startQuiz(e){
   document.getElementById("home-page-body").style.display="none";
   document.getElementById("score-body").style.display="none";
   document.getElementById("quiz-body").style.display="block";
-  this.countdown("countdown",1,0);// calls the countdown function 
+  this.countdown("countdown",20,0);// calls the countdown function 
   
   //Function to access first question from DB
   axios.post("http://localhost:8080/questions",{questionRequest:this.state.questionRequest})
