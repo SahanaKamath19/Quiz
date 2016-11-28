@@ -29,9 +29,6 @@ class ScoreHistory extends Component {
                 data:res.data,
                 id:res.data.id
                 });
-
-                // console.log("score");
-                // console.log(res);
              }
         }).catch((err)=>{
             //send user back to login page if token is invalid
@@ -47,7 +44,6 @@ componentDidUpdate(){
     axios
         .post('http://localhost:8080/scores',{id:this.state.id})
         .then((res)=>{
-            console.log(res.data);
             this.setState({
                 scores:res.data
             })
@@ -58,13 +54,18 @@ componentDidUpdate(){
             <div>
                 <HeaderTabs />
                  <div className="Score-page-body container" id="score-page-body">
+                 <div className="row score-style">
+                    <div className="col-sm-2 text-center score-header Dark-purple-text">SN</div>
+                    <div className="col-sm-3 text-center score-header Dark-purple-text">SCORE</div>
+                    <div className="col-sm-7 text-center score-header Dark-purple-text">DATE</div>
+                 </div>
                  {
-                      this.state.scores.map((item,index=1)=>{
+                      this.state.scores.map((item,index)=>{
                           return(
-                              <div className="row">
-                              <div className="col-sm-2 text-center">{index}</div>
-                              <div className="col-sm-4 text-center">{item.score}</div>
-                              <div className="col-sm-6 text-center">{item.created_at}</div>
+                              <div className="row score-style">
+                              <div className="col-sm-2 text-center score-body Dark-purple-text">{index}</div>
+                              <div className="col-sm-3 text-center score-body Dark-purple-text">{item.score}</div>
+                              <div className="col-sm-7 text-center score-body Dark-purple-text">{item.created_at}</div>
                               </div>
                           )
                       })

@@ -103,5 +103,16 @@ margin: 20px;
   font-weight: normal;
   margin-left:10px;
 }
-
+.score-style{
+  padding:2px;
+  margin-top:30px;
+  border:0.5px solid #49274a;
+}
+.score-header{
+  font-weight: bold;
+  font-size: 24px;
+}
+.score-body{
+  font-size: 20px;
+}
     

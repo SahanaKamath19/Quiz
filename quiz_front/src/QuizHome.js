@@ -218,7 +218,7 @@ retake(){
             </div>
             <div className="col-sm-7 Questions">
               <p className="Dark-purple-text Label fields">{this.state.questionDescription}</p>
-              <Options options={this.state.options} handleChangeRadio={this.handleChangeRadio}  selectedValue={this.state. selectedValue}/>
+              <Options options={this.state.options} handleChangeRadio={this.handleChangeRadio} selectedValue={this.state. selectedValue}/>
             </div>
             <div className="Timer col-sm-2">
               <img src={Clock} className="logo-height" alt="timer"/>
