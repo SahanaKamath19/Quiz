@@ -47,7 +47,8 @@ class QuizHome extends Component{
                 this.setState({
                 loading:false,
                 auth:true,
-                data:res.data.name
+                data:res.data.name,
+                id:res.data.id
                 });
                 document.getElementById("quiz-body").style.display="none" // On load question section is hidden
                 document.getElementById("score-body").style.display="none" //On load score section is hidden
@@ -135,6 +136,10 @@ submitAnswer(e){
    if(this.state.questionNumber>=30){
      document.getElementById("score-body").style.display="block";
      document.getElementById("quiz-body").style.display="none";
+     //score record should be added to score database
+     axios.post('http://localhost:8080/score',{state:this.state}).then((res)=>{
+       console.log("saved the record");
+     })
     }
 
   //Function to access first question from DB
