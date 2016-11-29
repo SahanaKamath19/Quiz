@@ -99,6 +99,7 @@ app.post('/', (req,res) => {
 });
 })
 
+// Function that returns user account information 
 app.get('/quizHome', authorize, (req,res) => {
     let email = req.decoded.email;
     Account 
@@ -140,6 +141,7 @@ app.post('/question', (req, res) => {
         res.send("Update Question");
 });
 
+// Function to fetch all score history for one particular user 
 app.post('/scores', (req, res) => {
     //console.log(req.body.id);
     Score
@@ -151,6 +153,7 @@ app.post('/scores', (req, res) => {
 	})
 });
 
+// Function to add score to DB when user finishes the test or when the timer hits zero
 app.post('/score', (req, res) => {
      const newScore = new Score({
            score: req.body.state.correctScore,
@@ -163,3 +166,16 @@ app.post('/score', (req, res) => {
         })
      res.send("Update Score");
 });
+
+//Function to update value of previous quiz result to false everytime user takes the quiz
+app.post('/scoreSet',(req,res)=>{
+    const attributesToUpdate = {
+    recent_score: false
+    }
+    Score.where({user_id: req.body.state.id})
+    .save(attributesToUpdate, {patch: true})
+    .then(score => {
+        console.log(score.attributes)
+    })
+    res.send("Update recent_score");
+})

@@ -81,6 +81,11 @@ class QuizHome extends Component{
 //Function to execute once the user clicks on "Start Quiz" button 
 startQuiz(e){
   e.preventDefault();
+  //update score database table recent value to false
+  axios.post('http://localhost:8080/scoreSet',{state:this.state}).then((res)=>{
+       console.log("saved the record");
+     })
+
   document.getElementById("home-page-body").style.display="none";
   document.getElementById("score-body").style.display="none";
   document.getElementById("quiz-body").style.display="block";
@@ -182,7 +187,6 @@ handleChangeRadio(e){
 
 retake(){
   location.reload();
-  //update score database table recent value to false
 }
   render(){
     if (this.state.loading) {
