@@ -10,6 +10,7 @@ class HeaderTabs extends Component {
           <img src={headerLogo} className="Account-logo" alt="Headerlogo" />
           <h1 className="HeaderText header-tab">Quiz</h1>
           <ul className="navbar">
+            <li><Link to="/quizHome"className="link-tab">Home</Link></li>
             <li><Link to="/score"className="link-tab">Score History</Link></li>
             <li><Link to="/" className="link-tab">Logout</Link></li>
           </ul>

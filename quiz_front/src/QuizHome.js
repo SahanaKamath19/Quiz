@@ -182,6 +182,7 @@ handleChangeRadio(e){
 
 retake(){
   location.reload();
+  //update score database table recent value to false
 }
   render(){
     if (this.state.loading) {
