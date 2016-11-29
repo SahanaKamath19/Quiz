@@ -28,7 +28,8 @@ class QuizHome extends Component{
         questionDescription:"",
         options:[],
         selectedValue:"",
-        correctAnswer:""
+        correctAnswer:"",
+        questionComplexity:""
     }
     this.startQuiz = this.startQuiz.bind(this);
     this.countdown = this.countdown.bind(this);
@@ -54,7 +55,7 @@ class QuizHome extends Component{
                 document.getElementById("score-body").style.display="none" //On load score section is hidden
 
                 //create random number array 
-              for (var i = 1, randomArray = []; i <= 30; i++) {
+              for (var i = 1, randomArray = []; i <= 55; i++) {
                 randomArray[i] = i;
               }
               // randomize the array
@@ -97,10 +98,12 @@ startQuiz(e){
    let question = res.data.question_description;
    let correctAnswer = res.data.correct_answer;
    let options = JSON.parse(res.data.options);
+   let questionComplexity = res.data.question_complexity;
     this.setState({
       questionDescription:question,
       correctAnswer:correctAnswer,
-      options:options
+      options:options,
+      questionComplexity:questionComplexity
     })
   }).catch(function(err){
         console.log(err);
@@ -156,10 +159,12 @@ submitAnswer(e){
    let question = res.data.question_description;
    let options = JSON.parse(res.data.options);
    let correctAnswer = res.data.correct_answer;
+   let questionComplexity = res.data.question_complexity;
     this.setState({
       questionDescription:question,
       options:options,
       questionNumber:this.state.questionNumber+1,
+      questionComplexity:questionComplexity,
       questionRequest:questionRequest,
       correctAnswer:correctAnswer
     })
@@ -219,6 +224,7 @@ retake(){
               </div>
               <div>
                 <h4 className="Dark-purple-text">Question Number:{this.state.questionNumber}</h4>
+                <h4 className="Dark-purple-text">Question Complexity:{this.state.questionComplexity}</h4>
               </div>
               <div>
                 <img src={ThumbUp} className="ScoreBoard-correct-answer logo-height" alt="correctAnswer"/>
