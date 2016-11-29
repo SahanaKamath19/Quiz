@@ -67,7 +67,6 @@ formSubmit(e){
                     <div className="col-xs-6">
                     <input type='password' className="form-control fields" id="Password" placeholder="********" value={this.state.password} onChange={this.onPasswordChange}/>
                     <label className="form-check-label checkStyle">
-                    <input className="form-check-input" type="checkbox"/> Remember Me
                     </label>
                     </div>
                 </div>
