@@ -29,7 +29,10 @@ class QuizHome extends Component{
         options:[],
         selectedValue:"",
         correctAnswer:"",
-        questionComplexity:""
+        questionComplexity:1,
+        complexityOneArray:[],
+        complexityTwoArray:[],
+        complexityThreeArray:[]
     }
     this.startQuiz = this.startQuiz.bind(this);
     this.countdown = this.countdown.bind(this);
@@ -87,6 +90,15 @@ startQuiz(e){
        console.log("saved the record");
      })
 
+  //get all the questions with complexity 1
+  axios.get('http://localhost:8080/complexityOneQuestion')
+  .then((res)=>{
+    console.log(res.data);
+    this.setState({
+      complexityOneArray:res.data
+    })
+  })
+
   document.getElementById("home-page-body").style.display="none";
   document.getElementById("score-body").style.display="none";
   document.getElementById("quiz-body").style.display="block";
@@ -98,12 +110,10 @@ startQuiz(e){
    let question = res.data.question_description;
    let correctAnswer = res.data.correct_answer;
    let options = JSON.parse(res.data.options);
-   let questionComplexity = res.data.question_complexity;
     this.setState({
       questionDescription:question,
       correctAnswer:correctAnswer,
-      options:options,
-      questionComplexity:questionComplexity
+      options:options
     })
   }).catch(function(err){
         console.log(err);
@@ -152,19 +162,42 @@ submitAnswer(e){
        console.log("saved the record");
      })
     }
-
+  
+  //Function to access questions with complexity 1 
+  if(this.state.correctScore===8){
+    axios.get('http://localhost:8080/complexityTwoQuestion')
+    .then((res)=>{
+      console.log(res.data);
+      this.setState({
+        complexityTwoArray:res.data
+      })
+    })
+      this.setState({
+        questionComplexity:2
+      })
+  }else if(this.state.correctScore===16){
+      axios.get('http://localhost:8080/complexityThreeQuestion')
+      .then((res)=>{
+      console.log(res.data);
+      this.setState({
+        complexityThreeArray:res.data
+      })
+    })
+      this.setState({
+        questionComplexity:3
+      })
+  }
+  
   //Function to access first question from DB
   axios.post("http://localhost:8080/questions",{questionRequest:questionRequest})
   .then((res)=>{  // use arrow function if not the keyword this would reference to the function and return undefined value
    let question = res.data.question_description;
    let options = JSON.parse(res.data.options);
    let correctAnswer = res.data.correct_answer;
-   let questionComplexity = res.data.question_complexity;
     this.setState({
       questionDescription:question,
       options:options,
       questionNumber:this.state.questionNumber+1,
-      questionComplexity:questionComplexity,
       questionRequest:questionRequest,
       correctAnswer:correctAnswer
     })
