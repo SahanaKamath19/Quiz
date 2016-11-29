@@ -179,3 +179,36 @@ app.post('/scoreSet',(req,res)=>{
     })
     res.send("Update recent_score");
 })
+
+//Function to get all the questions with complexity 1
+app.get('/complexityOneQuestion',(req,res) => {
+    Question
+    .where({question_complexity :1})
+    .fetchAll()
+    .then(questions => {
+        res.json(questions.models.map(questions => questions.attributes));
+        console.log(questions.models.map(questions => questions.attributes));
+	})
+});
+
+//Function to get all the questions with complexity 2
+app.get('/complexityTwoQuestion',(req,res) => {
+    Question
+    .where({question_complexity :2})
+    .fetchAll()
+    .then(questions => {
+        res.json(questions.models.map(questions => questions.attributes));
+        console.log(questions.models.map(questions => questions.attributes));
+	})
+});
+
+//Function to get all the questions with complexity 3
+app.get('/complexityThreeQuestion',(req,res) => {
+    Question
+    .where({question_complexity :3})
+    .fetchAll()
+    .then(questions => {
+        res.json(questions.models.map(questions => questions.attributes));
+        console.log(questions.models.map(questions => questions.attributes));
+	})
+});
