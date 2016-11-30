@@ -7,7 +7,6 @@ class ScoreHistory extends Component {
 
  constructor(){
     super();
-    
     this.state = {
         data:null,
         loading:true, 
@@ -39,7 +38,6 @@ class ScoreHistory extends Component {
         location.href = 'http://localhost:3000';
     }
   }
-
 componentDidUpdate(){
     axios
         .post('http://localhost:8080/scores',{id:this.state.id})
@@ -59,8 +57,11 @@ componentDidUpdate(){
                     <div className="col-sm-3 text-center score-header Dark-purple-text">SCORE</div>
                     <div className="col-sm-7 text-center score-header Dark-purple-text">DATE</div>
                  </div>
-                 {
-                      this.state.scores.map((item,index)=>{
+                 { 
+                      this.state.scores.sort(function(a,b) {
+                            return parseFloat(a.id) - parseFloat(b.id);
+                      })
+                      .map((item,index)=>{
                           return(
                               <div className="row score-style">
                               <div className="col-sm-2 text-center score-body Dark-purple-text">{index+1}</div>
