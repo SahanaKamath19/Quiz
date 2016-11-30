@@ -175,9 +175,6 @@ submitAnswer(e){
   let randomArray = this.state.randomArray;
    let random = randomArray[this.state.questionCount];
    let complexityArray = this.state.complexityArray;
-   console.log(randomArray);
-   console.log(complexityArray);
-  
    let questionCount = this.state.questionCount;
    let questionNumber = this.state.questionNumber;
    let questionComplexity = this.state.questionComplexity;
@@ -206,11 +203,12 @@ submitAnswer(e){
         wrongScore = wrongScore+1;
   }
   
+  //The code is sync and if we declare this above then the question we would expect on change of complexity would still display the previous complexity question
    let questionDescription = complexityArray[random].question_description;
    let correctAnswer = complexityArray[random].correct_answer;
    let options = JSON.parse(complexityArray[random].options);
 
-//set the sate at once
+//set the sate at once as set state is async
   let newState = ({
     complexityArray:complexityArray,
     randomArray : randomArray,
