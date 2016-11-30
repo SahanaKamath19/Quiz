@@ -187,7 +187,7 @@ app.get('/complexityOneQuestion',(req,res) => {
     .fetchAll()
     .then(questions => {
         res.json(questions.models.map(questions => questions.attributes));
-        console.log(questions.models.map(questions => questions.attributes));
+        //console.log(questions.models.map(questions => questions.attributes));
 	})
 });
 
@@ -198,7 +198,7 @@ app.get('/complexityTwoQuestion',(req,res) => {
     .fetchAll()
     .then(questions => {
         res.json(questions.models.map(questions => questions.attributes));
-        console.log(questions.models.map(questions => questions.attributes));
+        //console.log(questions.models.map(questions => questions.attributes));
 	})
 });
 
@@ -209,6 +209,6 @@ app.get('/complexityThreeQuestion',(req,res) => {
     .fetchAll()
     .then(questions => {
         res.json(questions.models.map(questions => questions.attributes));
-        console.log(questions.models.map(questions => questions.attributes));
+        //console.log(questions.models.map(questions => questions.attributes));
 	})
 });

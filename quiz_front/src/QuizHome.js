@@ -32,13 +32,16 @@ class QuizHome extends Component{
         questionComplexity:1,
         complexityOneArray:[],
         complexityTwoArray:[],
-        complexityThreeArray:[]
+        complexityThreeArray:[],
+        questionCount:1,
+        complexityArray:[]
     }
     this.startQuiz = this.startQuiz.bind(this);
     this.countdown = this.countdown.bind(this);
     this.submitAnswer= this.submitAnswer.bind(this);
     this.handleChangeRadio=this.handleChangeRadio.bind(this);
     this.retake=this.retake.bind(this); 
+    this.randomNumberGenerator=this.randomNumberGenerator.bind(this);
   }
   componentWillMount(){
     if(localStorage.authToken !== undefined && localStorage.authToken !== null){
@@ -56,22 +59,34 @@ class QuizHome extends Component{
                 });
                 document.getElementById("quiz-body").style.display="none" // On load question section is hidden
                 document.getElementById("score-body").style.display="none" //On load score section is hidden
-
-                //create random number array 
-              for (var i = 1, randomArray = []; i <= 55; i++) {
-                randomArray[i] = i;
-              }
-              // randomize the array
-              randomArray.sort(function () {
-                  return Math.random() - 0.5;
-              });
-              let questionRequest = randomArray[this.state.questionNumber-1];
-              this.setState({
-                randomArray:randomArray,
-                questionRequest:questionRequest
-              })
-              console.log(randomArray);
             }
+
+             //get all the questions with complexity 1
+              axios.get('http://localhost:8080/complexityOneQuestion')
+              .then((res)=>{
+                console.log(res.data);
+                this.setState({
+                  complexityOneArray:res.data,
+                  complexityArray:res.data
+                })
+              })
+              //get all the questions with complexity 2
+              axios.get('http://localhost:8080/complexityTwoQuestion')
+              .then((res)=>{
+                console.log(res.data);
+                this.setState({
+                  complexityTwoArray:res.data
+                })
+              })
+
+              //get all the questions with complexity 3
+              axios.get('http://localhost:8080/complexityThreeQuestion')
+              .then((res)=>{
+                console.log(res.data);
+                this.setState({
+                  complexityThreeArray:res.data
+                })
+              })
         }).catch((err)=>{
             //send user back to login page if token is invalid
             location.href = 'http://localhost:3000/';
@@ -82,42 +97,49 @@ class QuizHome extends Component{
     }
   }
 
+//Function to create random numbers
+randomNumberGenerator(array){
+    let length = (array).length;
+    for (var i = 0, randomArray = []; i < length; i++) {
+                  randomArray[i] = i;
+                }
+    // randomize the array
+    randomArray.sort(function () {
+    return Math.random() - 0.5;
+    });
+    this.setState({
+     randomArray:randomArray
+    })
+  console.log(randomArray);
+   return randomArray;
+}
+
+
 //Function to execute once the user clicks on "Start Quiz" button 
 startQuiz(e){
   e.preventDefault();
-  //update score database table recent value to false
-  axios.post('http://localhost:8080/scoreSet',{state:this.state}).then((res)=>{
-       console.log("saved the record");
-     })
 
-  //get all the questions with complexity 1
-  axios.get('http://localhost:8080/complexityOneQuestion')
-  .then((res)=>{
-    console.log(res.data);
-    this.setState({
-      complexityOneArray:res.data
-    })
-  })
-
-  document.getElementById("home-page-body").style.display="none";
-  document.getElementById("score-body").style.display="none";
-  document.getElementById("quiz-body").style.display="block";
-  this.countdown("countdown",20,0);// calls the countdown function 
-  
-  //Function to access first question from DB
-  axios.post("http://localhost:8080/questions",{questionRequest:this.state.questionRequest})
-  .then((res)=>{  // use arrow function if not the keyword this would reference to the function and return undefined value
-   let question = res.data.question_description;
-   let correctAnswer = res.data.correct_answer;
-   let options = JSON.parse(res.data.options);
+  //call first set of random number 
+  let random = this.randomNumberGenerator(this.state.complexityArray)[0];
+   console.log(random);
+   let question = this.state.complexityArray[random].question_description;
+   let correctAnswer = this.state.complexityArray[random].correct_answer;
+   let options = JSON.parse(this.state.complexityArray[random].options);
     this.setState({
       questionDescription:question,
       correctAnswer:correctAnswer,
       options:options
     })
-  }).catch(function(err){
-        console.log(err);
-    })
+
+  //update score database table recent value to false
+  axios.post('http://localhost:8080/scoreSet',{state:this.state}).then((res)=>{
+       console.log("saved the record");
+     })
+  document.getElementById("home-page-body").style.display="none";
+  document.getElementById("score-body").style.display="none";
+  document.getElementById("quiz-body").style.display="block";
+  this.countdown("countdown",20,0);// calls the countdown function 
+  
 }
 
 //Timer Function: this function will count down from 20 minutes to 0 and displays score section 
@@ -147,11 +169,23 @@ countdown(elementName, minutes, seconds){
          endTime = (+new Date()) + 1000 * (60*minutes + seconds) + 500; //+new Date is similar to "number(new Date())". By using "+" date will always be number 
          updateTimer();
     }
-// Submit Answer Function 
+//Submit Answer Function 
 submitAnswer(e){
   e.preventDefault();
-  let randomArray =this.state.randomArray;
-  let questionRequest = randomArray[this.state.questionNumber];
+  let randomArray = this.state.randomArray;
+  //let questionRequest = randomArray[this.state.questionNumber];
+//Function to increment the questions 
+   let random = randomArray[this.state.questionCount];
+   let question = this.state.complexityArray[random].question_description;
+   let correctAnswer = this.state.complexityArray[random].correct_answer;
+   let options = JSON.parse(this.state.complexityArray[random].options);
+    this.setState({
+      questionDescription:question,
+      correctAnswer:correctAnswer,
+      options:options,
+      questionNumber:this.state.questionNumber+1,
+      questionCount:this.state.questionCount+1
+    })
 
   //This function should direct user to score page once it's created
    if(this.state.questionNumber>=30){
@@ -162,48 +196,34 @@ submitAnswer(e){
        console.log("saved the record");
      })
     }
-  
-  //Function to access questions with complexity 1 
-  if(this.state.correctScore===8){
-    axios.get('http://localhost:8080/complexityTwoQuestion')
-    .then((res)=>{
-      console.log(res.data);
-      this.setState({
-        complexityTwoArray:res.data
-      })
-    })
+
+    if(this.state.correctScore == 7){
       this.setState({
         questionComplexity:2
       })
-  }else if(this.state.correctScore===16){
-      axios.get('http://localhost:8080/complexityThreeQuestion')
-      .then((res)=>{
-      console.log(res.data);
-      this.setState({
-        complexityThreeArray:res.data
-      })
-    })
+    }else if(this.state.correctScore == 15){
       this.setState({
         questionComplexity:3
       })
+    }
+  
+  //Function to access questions with complexity 1 
+  if(this.state.correctScore == 6){
+    let random = this.randomNumberGenerator(this.state.complexityTwoArray);
+      this.setState({
+        randomArray:random,
+        questionCount:0,
+        complexityArray:this.state.complexityTwoArray
+      })
+  }else if(this.state.correctScore == 14){
+    let random = this.randomNumberGenerator(this.state.complexityThreeArray);
+      this.setState({
+        randomArray:random,
+        questionCount:0,
+        complexityArray:this.state.complexityThreeArray
+      })
   }
   
-  //Function to access first question from DB
-  axios.post("http://localhost:8080/questions",{questionRequest:questionRequest})
-  .then((res)=>{  // use arrow function if not the keyword this would reference to the function and return undefined value
-   let question = res.data.question_description;
-   let options = JSON.parse(res.data.options);
-   let correctAnswer = res.data.correct_answer;
-    this.setState({
-      questionDescription:question,
-      options:options,
-      questionNumber:this.state.questionNumber+1,
-      questionRequest:questionRequest,
-      correctAnswer:correctAnswer
-    })
-  }).catch(function(err){
-        console.log(err);
-  })
   //match the user input with actual answer
   if(this.state.selectedValue===this.state.correctAnswer){
       this.setState({
@@ -283,7 +303,7 @@ retake(){
            {/* Score Section*/}
            <div className="Home-page-body container" id="score-body">
             <h2 className="Purple-text Account-Login-header text-center">{this.state.data} You scored {this.state.correctScore}/30 </h2>
-            <p className="Dark-purple-text Label fields text-center">Total number of question answered: {this.state.questionNumber}</p>
+            <p className="Dark-purple-text Label fields text-center">Total number of question answered: {this.state.questionNumber-1}</p>
             <p className="Dark-purple-text Label fields text-center">Total number of wrong answers: {this.state.wrongScore}</p>
             <input type="submit" value="Retake Quiz" className="form-btn btn Dark-purple Button-style center-block" onClick={this.retake}/>
            </div>

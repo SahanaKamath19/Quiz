@@ -65,7 +65,7 @@ componentDidUpdate(){
                               <div className="row score-style">
                               <div className="col-sm-2 text-center score-body Dark-purple-text">{index+1}</div>
                               <div className="col-sm-3 text-center score-body Dark-purple-text">{item.score}</div>
-                              <div className="col-sm-7 text-center score-body Dark-purple-text">{item.created_at}</div>
+                              <div className="col-sm-7 text-center score-body Dark-purple-text">{item.created_at.substring(0,10)}</div>
                               </div>
                           )
                       }).reverse()
