@@ -173,67 +173,68 @@ countdown(elementName, minutes, seconds){
 submitAnswer(e){
   e.preventDefault();
   let randomArray = this.state.randomArray;
-  //let questionRequest = randomArray[this.state.questionNumber];
-//Function to increment the questions 
    let random = randomArray[this.state.questionCount];
-   let question = this.state.complexityArray[random].question_description;
-   let correctAnswer = this.state.complexityArray[random].correct_answer;
-   let options = JSON.parse(this.state.complexityArray[random].options);
-    this.setState({
-      questionDescription:question,
-      correctAnswer:correctAnswer,
-      options:options,
-      questionNumber:this.state.questionNumber+1,
-      questionCount:this.state.questionCount+1
-    })
-
-  //This function should direct user to score page once it's created
-   if(this.state.questionNumber>=30){
-     document.getElementById("score-body").style.display="block";
-     document.getElementById("quiz-body").style.display="none";
-     //score record should be added to score database
-     axios.post('http://localhost:8080/score',{state:this.state}).then((res)=>{
-       console.log("saved the record");
-     })
-    }
-
-    if(this.state.correctScore == 7){
-      this.setState({
-        questionComplexity:2
-      })
-    }else if(this.state.correctScore == 15){
-      this.setState({
-        questionComplexity:3
-      })
-    }
+   let complexityArray = this.state.complexityArray;
+   console.log(randomArray);
+   console.log(complexityArray);
   
+   let questionCount = this.state.questionCount;
+   let questionNumber = this.state.questionNumber;
+   let questionComplexity = this.state.questionComplexity;
+   let correctScore = this.state.correctScore;
+   let wrongScore = this.state.wrongScore;
+
   //Function to access questions with complexity 1 
   if(this.state.correctScore == 6){
-    let random = this.randomNumberGenerator(this.state.complexityTwoArray);
-      this.setState({
-        randomArray:random,
-        questionCount:0,
-        complexityArray:this.state.complexityTwoArray
-      })
+       randomArray = this.randomNumberGenerator(this.state.complexityTwoArray);
+        questionComplexity = 2;
+        random=randomArray[0];
+        questionCount = 0;
+        complexityArray= this.state.complexityTwoArray;
   }else if(this.state.correctScore == 14){
-    let random = this.randomNumberGenerator(this.state.complexityThreeArray);
-      this.setState({
-        randomArray:random,
-        questionCount:0,
-        complexityArray:this.state.complexityThreeArray
-      })
+      randomArray = this.randomNumberGenerator(this.state.complexityThreeArray);
+        questionComplexity = 3;
+        random=randomArray[0];
+        questionCount = 0;
+        complexityArray= this.state.complexityThreeArray;
   }
   
   //match the user input with actual answer
   if(this.state.selectedValue===this.state.correctAnswer){
-      this.setState({
-        correctScore:this.state.correctScore+1
-      })
+        correctScore = correctScore+1;
   }else{
-    this.setState({
-        wrongScore:this.state.wrongScore+1
-      })
+        wrongScore = wrongScore+1;
   }
+  
+   let questionDescription = complexityArray[random].question_description;
+   let correctAnswer = complexityArray[random].correct_answer;
+   let options = JSON.parse(complexityArray[random].options);
+
+//set the sate at once
+  let newState = ({
+    complexityArray:complexityArray,
+    randomArray : randomArray,
+    questionDescription: questionDescription,
+    correctAnswer: correctAnswer,
+    options : options,
+    questionNumber : questionNumber+1,
+    questionCount : questionCount+1,
+    questionComplexity:questionComplexity,
+    correctScore:correctScore,
+    wrongScore:wrongScore,
+    id:this.state.id
+  })
+  
+//This function should direct user to score page once it's created
+   if(this.state.questionNumber>=30){
+     document.getElementById("score-body").style.display="block";
+     document.getElementById("quiz-body").style.display="none";
+     //score record should be added to score database
+     axios.post('http://localhost:8080/score',{state:newState}).then((res)=>{
+       console.log("saved the record");
+     })
+    }
+  this.setState(newState);
 }
 
 //Function reas the input from user
