@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
         table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now());
         table.string('name').notNullable();
         table.string('password').notNullable();
-        table.string('email') // adds a string column
+        table.string('email').unique().notNullable() // adds a string column
             .unique() // which has to be unique
             .notNullable() // and is required
     })  
