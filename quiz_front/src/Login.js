@@ -26,12 +26,12 @@ onPasswordChange(e){
 formSubmit(e){
     e.preventDefault();
     axios
-      .post('http://localhost:8080/',this.state)
+      .post('/',this.state)
       .then((res) => {
         console.log(res);
         if(res.status === 200){
             localStorage.authToken = res.data.token;
-            location.href ="http://localhost:3000/quizHome";
+            location.href ="/Home";
           }
       })
       .catch(()=>{

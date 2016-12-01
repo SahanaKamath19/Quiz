@@ -19,7 +19,7 @@ class ScoreHistory extends Component {
   componentWillMount(){
        if(localStorage.authToken !== undefined && localStorage.authToken !== null){
         axios
-        .get('http://localhost:8080/quizHome',{headers:{'authorization':localStorage.authToken}})
+        .get('/quizHome',{headers:{'authorization':localStorage.authToken}})
         .then((res) => {
              if(res.status === 200){
                 this.setState({
@@ -31,16 +31,16 @@ class ScoreHistory extends Component {
              }
         }).catch((err)=>{
             //send user back to login page if token is invalid
-            location.href = 'http://localhost:3000/';
+            location.href = '/';
         })
        }
         else{
-        location.href = 'http://localhost:3000';
+        location.href = '/';
     }
   }
 componentDidUpdate(){
     axios
-        .post('http://localhost:8080/scores',{id:this.state.id})
+        .post('/scores',{id:this.state.id})
         .then((res)=>{
             this.setState({
                 scores:res.data

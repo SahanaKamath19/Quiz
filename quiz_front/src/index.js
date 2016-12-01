@@ -11,7 +11,7 @@ ReactDOM.render(
     <Router history={browserHistory}>
         <Route path="/" component={Login}/>
         <Route path="/account" component={Account} />
-        <Route path="/quizHome" component={QuizHome} />
+        <Route path="/Home" component={QuizHome} />
         <Route path="/score" component={ScoreHistory} />
     </Router>,
   document.getElementById('root')

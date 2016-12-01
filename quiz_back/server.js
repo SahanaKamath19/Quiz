@@ -9,10 +9,11 @@ const authorize = require('./middleware/authorize');
 
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded 
+app.use(express.static('build'));
 
 const Port = process.env.PORT || 8080;
 app.listen(Port, () => {
-    console.log('Server Started on http://localhost:8080');
+    console.log('Server Started on '+ Port);
     console.log('Press CTRL + C to stop server');
 });
 
@@ -211,4 +212,8 @@ app.get('/complexityThreeQuestion',(req,res) => {
         res.json(questions.models.map(questions => questions.attributes));
         //console.log(questions.models.map(questions => questions.attributes));
 	})
+});
+
+app.get('*', function(req, res) {
+    res.sendFile((__dirname+'/build/index.html'));
 });

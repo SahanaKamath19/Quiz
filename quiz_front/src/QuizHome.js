@@ -50,7 +50,7 @@ class QuizHome extends Component{
     if(localStorage.authToken !== undefined && localStorage.authToken !== null){
         //Add token to request header
         axios
-        .get('http://localhost:8080/quizHome',{headers:{'authorization':localStorage.authToken}})
+        .get('/quizHome',{headers:{'authorization':localStorage.authToken}})
         .then( (res) => {
             console.log(res);
             if(res.status === 200){
@@ -63,7 +63,7 @@ class QuizHome extends Component{
             }
 
              //get all the questions with complexity 1
-              axios.get('http://localhost:8080/complexityOneQuestion')
+              axios.get('/complexityOneQuestion')
               .then((res)=>{
                 console.log(res.data);
                 this.setState({
@@ -72,7 +72,7 @@ class QuizHome extends Component{
                 })
               })
               //get all the questions with complexity 2
-              axios.get('http://localhost:8080/complexityTwoQuestion')
+              axios.get('/complexityTwoQuestion')
               .then((res)=>{
                 console.log(res.data);
                 this.setState({
@@ -81,7 +81,7 @@ class QuizHome extends Component{
               })
 
               //get all the questions with complexity 3
-              axios.get('http://localhost:8080/complexityThreeQuestion')
+              axios.get('/complexityThreeQuestion')
               .then((res)=>{
                 console.log(res.data);
                 this.setState({
@@ -90,11 +90,11 @@ class QuizHome extends Component{
               })
         }).catch((err)=>{
             //send user back to login page if token is invalid
-            location.href = 'http://localhost:3000/';
+            location.href = '/';
         })
     }
     else{
-        location.href = 'http://localhost:3000';
+        location.href = '/';
     }
   }
 
@@ -135,7 +135,7 @@ startQuiz(e){
     })
 
   //update score database table recent value to false
-  axios.post('http://localhost:8080/scoreSet',{state:this.state}).then((res)=>{
+  axios.post('/scoreSet',{state:this.state}).then((res)=>{
        console.log("saved the record");
      })
   this.countdown("countdown",20,0);// calls the countdown function 
@@ -156,7 +156,7 @@ countdown(elementName, minutes, seconds){
                 showScore:true,
                 showQuestion:false
               })
-                 axios.post('http://localhost:8080/score',{state:this.state}).then((res)=>{
+                 axios.post('/score',{state:this.state}).then((res)=>{
                   console.log("saved the record");
                 })
 
@@ -232,7 +232,7 @@ submitAnswer(e){
        showQuestion:false,
      })
      //score record should be added to score database
-     axios.post('http://localhost:8080/score',{state:newState}).then((res)=>{
+     axios.post('/score',{state:newState}).then((res)=>{
        console.log("saved the record");
      })
     }

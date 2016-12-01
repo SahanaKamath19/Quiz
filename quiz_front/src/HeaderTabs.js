@@ -24,7 +24,7 @@ class HeaderTabs extends Component {
               <button className="btn btn-default dropdown-toggle center-block menu-button" type="button" data-toggle="dropdown">Menu 
                <span className="caret"></span></button>
                 <ul className="dropdown-menu menu-style">
-                <li><Link to="/quizHome">Home</Link></li>
+                <li><Link to="/Home">Home</Link></li>
                 <li><Link to="/score">Score History</Link></li>
                 <li><Link to="/" onClick={this.logout}>Logout</Link></li>
               </ul>
