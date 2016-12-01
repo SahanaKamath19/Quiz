@@ -54,8 +54,8 @@ componentDidUpdate(){
                  <div className="Score-page-body container" id="score-page-body">
                  <div className="row score-style">
                     <div className="col-sm-2 text-center score-header Dark-purple-text">SN</div>
-                    <div className="col-sm-3 text-center score-header Dark-purple-text">SCORE</div>
-                    <div className="col-sm-7 text-center score-header Dark-purple-text">DATE</div>
+                    <div className="col-sm-8 text-center score-header Dark-purple-text">SCORE</div>
+                    <div className="col-sm-2 text-center score-header Dark-purple-text">DATE</div>
                  </div>
                  { 
                       this.state.scores.sort(function(a,b) {
@@ -65,8 +65,8 @@ componentDidUpdate(){
                           return(
                               <div className="row score-style">
                               <div className="col-sm-2 text-center score-body Dark-purple-text">{index+1}</div>
-                              <div className="col-sm-3 text-center score-body Dark-purple-text">{item.score}</div>
-                              <div className="col-sm-7 text-center score-body Dark-purple-text">{item.created_at.substring(0,10)}</div>
+                              <div className="col-sm-8 text-center score-body Dark-purple-text">{item.score}</div>
+                              <div className="col-sm-2 text-center score-body Dark-purple-text">{item.created_at.substring(0,10)}</div>
                               </div>
                           )
                       }).reverse()
