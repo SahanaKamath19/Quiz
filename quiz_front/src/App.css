@@ -111,3 +111,6 @@ margin: 20px;
 .link-style:hover{
   color: #94618E;
 }
+.hidden{
+  display: none;
+}

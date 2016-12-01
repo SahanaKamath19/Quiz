@@ -34,7 +34,10 @@ class QuizHome extends Component{
         complexityTwoArray:[],
         complexityThreeArray:[],
         questionCount:1,
-        complexityArray:[]
+        complexityArray:[],
+        showInstructions:true,
+        showQuestion:false,
+        showScore:false
     }
     this.startQuiz = this.startQuiz.bind(this);
     this.countdown = this.countdown.bind(this);
@@ -57,8 +60,6 @@ class QuizHome extends Component{
                 data:res.data.name,
                 id:res.data.id
                 });
-                document.getElementById("quiz-body").style.display="none" // On load question section is hidden
-                document.getElementById("score-body").style.display="none" //On load score section is hidden
             }
 
              //get all the questions with complexity 1
@@ -128,16 +129,15 @@ startQuiz(e){
     this.setState({
       questionDescription:question,
       correctAnswer:correctAnswer,
-      options:options
+      options:options,
+      showInstructions:false,
+      showQuestion:true
     })
 
   //update score database table recent value to false
   axios.post('http://localhost:8080/scoreSet',{state:this.state}).then((res)=>{
        console.log("saved the record");
      })
-  document.getElementById("home-page-body").style.display="none";
-  document.getElementById("score-body").style.display="none";
-  document.getElementById("quiz-body").style.display="block";
   this.countdown("countdown",20,0);// calls the countdown function 
   
 }
@@ -152,8 +152,10 @@ countdown(elementName, minutes, seconds){
             msRemaining = endTime - (+new Date()); 
             if (msRemaining < 500 ) {
               // Display score section 
-                document.getElementById("score-body").style.display="block";
-                document.getElementById("quiz-body").style.display="none";
+              this.setState({
+                showScore:true,
+                showQuestion:false
+              })
                  axios.post('http://localhost:8080/score',{state:this.state}).then((res)=>{
                   console.log("saved the record");
                 })
@@ -225,8 +227,10 @@ submitAnswer(e){
   
 //This function should direct user to score page once it's created
    if(this.state.questionNumber>=30){
-     document.getElementById("score-body").style.display="block";
-     document.getElementById("quiz-body").style.display="none";
+     this.setState({
+       showScore:true,
+       showQuestion:false,
+     })
      //score record should be added to score database
      axios.post('http://localhost:8080/score',{state:newState}).then((res)=>{
        console.log("saved the record");
@@ -254,7 +258,7 @@ retake(){
         <div>
         <HeaderTabs/>
         {/* Instructions Section*/}
-          <div className="Home-page-body container" id="home-page-body">
+          <div className={this.state.showInstructions?'Home-page-body container':'hidden'} id="home-page-body">
           <h2 className="Purple-text Account-Login-header text-center">Hello {this.state.data}!</h2>
             <h3 className="Instructions-header Dark-purple-text text-center">Instructions:</h3>
             <p className="Dark-purple-text Instructions-text text-center">This Quiz tests your knowledge on HTML, CSS, Javascript and React</p>
@@ -266,7 +270,7 @@ retake(){
           </div>
 
           {/* Questions Section*/}
-          <div className="Home-page-body container" id="quiz-body">
+          <div className={this.state.showQuestion? 'Home-page-body container' : 'hidden'} id="quiz-body">
           <h2 className="Purple-text Account-Login-header text-center">Hello {this.state.data}!</h2>
             <div className="row">
             <div className="col-sm-3 Score">
@@ -300,7 +304,7 @@ retake(){
           </div>
 
            {/* Score Section*/}
-           <div className="Home-page-body container" id="score-body">
+           <div className={this.state.showScore? 'Home-page-body container':'hidden'} id="score-body">
             <h2 className="Purple-text Account-Login-header text-center">{this.state.data} You scored {this.state.correctScore}/30 </h2>
             <p className="Dark-purple-text Label fields text-center">Total number of question answered: {this.state.questionNumber-1}</p>
             <p className="Dark-purple-text Label fields text-center">Total number of wrong answers: {this.state.wrongScore}</p>
