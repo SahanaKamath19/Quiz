@@ -66,26 +66,26 @@ onPasswordChange(e){
             <div className="container">
             <form>
                 <div className="form-group form-elements">
-                    <div className="col-xs-6 col-form-label Label Purple-text">
+                    <div className="col-xs-12 col-sm-6 form-label Label Purple-text">
                     <label for="userName">Pick your username:</label>
                     </div>
-                    <div className="col-xs-6">
+                    <div className="col-xs-12 col-sm-6">
                     <input type="text" className="form-control fields" id="userName" placeholder="E.g. John Doe" value={this.state.name} onChange={this.onNameChange}/>
                     </div>
                 </div>
                 <div className="form-group form-elements Purple-text">
-                    <div className="col-xs-6 col-form-label Label">
+                    <div className="col-xs-12 col-sm-6 form-label Label">
                     <label for="Email">Pick your email:</label>
                     </div>
-                    <div className="col-xs-6">
+                    <div className="col-xs-12 col-sm-6">
                     <input type="email" className="form-control fields" id="Email" placeholder="E.g. John_Doe@email.com" value={this.state.email} onChange={this.onEmailChange}/>
                     </div>
                 </div>
                 <div className="form-group form-elements Purple-text">
-                    <div className="col-xs-6 col-form-label Label">
+                    <div className="col-xs-12 col-sm-6 form-label Label">
                     <label for="Password">Pick a password:</label>
                     </div>
-                    <div className="col-xs-6">
+                    <div className="col-xs-12 col-sm-6">
                     <input type={this.state.passwordType} className="form-control fields" id="Password" placeholder="********" value={this.state.password} onChange={this.onPasswordChange}/>
                     <label className="form-check-label checkStyle">
                     <input className="form-check-input" type="checkbox" onChange={this.showPassword}/> Show password

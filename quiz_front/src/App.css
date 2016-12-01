@@ -11,11 +11,9 @@
   color: #49274a;
 }
 .Account-logo {
-  height: 60px;
-  float:left;
+  height: 75px;
 }
 .Header {
-  height: 100px;
   padding: 15px;
   color: white;
 }
@@ -47,35 +45,24 @@ color: #ffffff;
   float: left;
   margin-top: 10px;
 }
-.link-style{
-text-decoration: underline;
+.dropdown-style{
+   margin-top:20px;
 }
-.link-style:hover, .link-tab:hover{
-  color: #94618E;
+.menu-style{
+  min-width:0px;
+  padding:2px;
+  left: 50%;
+  right: auto;
+  text-align: center;
+  transform: translate(-50%, 0);
+}
+.dropdown-menu>li>a{
+  padding:5px;
+  color: #49274a;
 }
 .no-warning{
     display:none;
   }
-.header-tab{
-margin-left: 43%;
-float: left;
-}
-.navbar {
-  overflow: auto;
-  float: right;
-  padding: 0 30px;
-  list-style: none;
-}
-.navbar li {
-  float: left;
-  margin-left: 60px;
-  line-height: 80px;
-}
-.link-tab{
-color: #FFFFFF;
-font-size: 20px;
-text-decoration: none;
-}
 .Instructions-header{
   margin-top: 30px;
   font-size: 35px;

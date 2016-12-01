@@ -13,14 +13,22 @@ class HeaderTabs extends Component {
   }
   render() {
     return (
-        <div className="Header Dark-purple">
-          <img src={headerLogo} className="Account-logo" alt="Headerlogo" />
-          <h1 className="HeaderText header-tab">Quiz</h1>
-          <ul className="navbar">
-            <li><Link to="/quizHome"className="link-tab">Home</Link></li>
-            <li><Link to="/score"className="link-tab">Score History</Link></li>
-            <li><Link to="/" className="link-tab" onClick={this.logout}>Logout</Link></li>
-          </ul>
+        <div className="row Header Dark-purple">
+          <div className="col-xs-12 col-sm-1">
+            <img src={headerLogo} className="Account-logo center-block" alt="Headerlogo" />
+          </div>
+          <div className="col-xs-12 col-sm-10">
+          <h1 className="HeaderText text-center">Quiz</h1>
+          </div>
+          <div className="col-xs-12 col-sm-1 dropdown dropdown-style">
+              <button className="btn btn-default dropdown-toggle center-block" type="button" data-toggle="dropdown">
+               <span className="caret"></span></button>
+                <ul className="dropdown-menu menu-style">
+                <li><Link to="/quizHome">Home</Link></li>
+                <li><Link to="/score">Score History</Link></li>
+                <li><Link to="/" onClick={this.logout}>Logout</Link></li>
+              </ul>
+          </div>
         </div>
     );
   }

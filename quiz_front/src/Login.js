@@ -53,18 +53,18 @@ formSubmit(e){
           <div className="Purple-text">Do not have an account? <Link to="/account" className="Dark-purple-text link-style">Create Account</Link> </div>
             <form>
               <div className="form-group form-elements Purple-text">
-                    <div className="col-xs-6 col-form-label Label">
+                    <div className="col-xs-12 col-sm-6 form-label Label">
                     <label for="Email">Email Address:</label>
                     </div>
-                    <div className="col-xs-6">
+                    <div className="col-xs-12 col-sm-6">
                     <input type="email" className="form-control fields" id="Email" placeholder="E.g. John_Doe@email.com" value={this.state.email} onChange={this.onEmailChange}/>
                     </div>
                 </div>
                  <div className="form-group form-elements Purple-text">
-                    <div className="col-xs-6 col-form-label Label">
+                    <div className="col-xs-12 col-sm-6 form-label Label">
                     <label for="Password">Password:</label>
                     </div>
-                    <div className="col-xs-6">
+                    <div className="col-xs-12 col-sm-6">
                     <input type='password' className="form-control fields" id="Password" placeholder="********" value={this.state.password} onChange={this.onPasswordChange}/>
                     <label className="form-check-label checkStyle">
                     </label>
