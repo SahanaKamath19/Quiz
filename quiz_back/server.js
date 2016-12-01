@@ -11,9 +11,9 @@ app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded 
 app.use(express.static('build'));
 
-const Port = process.env.PORT || 8080;
-app.listen(Port, () => {
-    console.log('Server Started on '+ Port);
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log('Server Started on '+ PORT);
     console.log('Press CTRL + C to stop server');
 });
 
