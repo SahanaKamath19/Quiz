@@ -21,7 +21,7 @@ class HeaderTabs extends Component {
           <h1 className="HeaderText text-center">Quiz</h1>
           </div>
           <div className="col-xs-12 col-sm-1 dropdown dropdown-style">
-              <button className="btn btn-default dropdown-toggle center-block" type="button" data-toggle="dropdown">
+              <button className="btn btn-default dropdown-toggle center-block menu-button" type="button" data-toggle="dropdown">Menu 
                <span className="caret"></span></button>
                 <ul className="dropdown-menu menu-style">
                 <li><Link to="/quizHome">Home</Link></li>

@@ -59,6 +59,9 @@ color: #ffffff;
   text-align: center;
   transform: translate(-50%, 0);
 }
+.btn .caret{
+  margin-left: 5px;
+}
 .dropdown-menu>li>a{
   padding:5px;
   color: #49274a;
