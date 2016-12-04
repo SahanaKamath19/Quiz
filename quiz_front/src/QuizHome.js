@@ -184,13 +184,13 @@ submitAnswer(e){
    let wrongScore = this.state.wrongScore;
 
   //Function to access questions with complexity 1 
-  if(this.state.correctScore == 6){
+  if(this.state.correctScore == 10){
        randomArray = this.randomNumberGenerator(this.state.complexityTwoArray);
         questionComplexity = 2;
         random=randomArray[0];
         questionCount = 0;
         complexityArray= this.state.complexityTwoArray;
-  }else if(this.state.correctScore == 14){
+  }else if(this.state.correctScore == 30){
       randomArray = this.randomNumberGenerator(this.state.complexityThreeArray);
         questionComplexity = 3;
         random=randomArray[0];
@@ -200,7 +200,13 @@ submitAnswer(e){
   
   //match the user input with actual answer
   if(this.state.selectedValue===this.state.correctAnswer){
-        correctScore = correctScore+1;
+    if(this.state.correctScore<10){
+      correctScore = correctScore+1;
+    }else if(this.state.correctScore>=10 && this.state.correctScore<30){
+      correctScore = correctScore+2;
+    }else if(this.state.correctScore>=30){
+      correctScore = correctScore+3;
+    }   
   }else{
         wrongScore = wrongScore+1;
   }
@@ -305,7 +311,7 @@ retake(){
 
            {/* Score Section*/}
            <div className={this.state.showScore? 'Home-page-body container':'hidden'} id="score-body">
-            <h2 className="Purple-text Account-Login-header text-center">{this.state.data} You scored {this.state.correctScore}/30 </h2>
+            <h2 className="Purple-text Account-Login-header text-center">{this.state.data} You scored {this.state.correctScore}/60 </h2>
             <p className="Dark-purple-text Label fields text-center">Total number of question answered: {this.state.questionNumber-1}</p>
             <p className="Dark-purple-text Label fields text-center">Total number of wrong answers: {this.state.wrongScore}</p>
             <input type="submit" value="Retake Quiz" className="form-btn btn Dark-purple Button-style center-block" onClick={this.retake}/>
