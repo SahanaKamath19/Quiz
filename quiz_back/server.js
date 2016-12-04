@@ -41,6 +41,10 @@ const Account = bookshelf.Model.extend({
     tableName: 'userAccount',
 })
 
+const Admin = bookshelf.Model.extend({
+    tableName: 'adminUser',
+})
+
 const Score = bookshelf.Model.extend({
     tableName: 'scoreCard',
     user: function() {
@@ -52,7 +56,7 @@ const Question = bookshelf.Model.extend({
     tableName: 'question',
 })
 
-//Update the database with user information
+//Update the database with user information 
 app.post('/encrypt', (req, res) => {
     console.log("Details from account" +" "+req.body.name +" "+req.body.email +" "+ req.body.password);
     bcrypt.genSalt(10, (err, salt) => {
@@ -73,6 +77,28 @@ app.post('/encrypt', (req, res) => {
     });
 });
 
+//Update the database with admin information 
+app.post('/adminEncrypt', (req, res) => {
+    console.log("Details from admin" +" "+req.body.name +" "+req.body.email +" "+ req.body.password);
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
+            if (err) throw err;
+            //Add record to database with hashed password
+        const newAdmin = new Admin({
+            name: req.body.name,
+            email: req.body.email,
+            password: hash,
+            })
+            newAdmin.save()
+            .then(admin => {
+            console.log(admin)
+        })
+    res.send("Update Admin User");
+        });
+    });
+});
+
+//login verification for users
 app.post('/', (req,res) => {
     let email = req.body.email;
     let password = req.body.password;
@@ -99,6 +125,47 @@ app.post('/', (req,res) => {
   .send("Account not found");
 });
 })
+
+//login verification for admins
+app.post('/adminLogin', (req,res) => {
+    let email = req.body.email;
+    let password = req.body.password;
+    Admin 
+    .where({email : email})
+    .fetch()
+    .then(admin=>{
+        console.log(admin.attributes);
+        bcrypt.compare(password, admin.attributes.password.toString(), function(err, result) {
+            if(result){
+				//sign a token in successful login and send to client side
+                let token = jwt.sign({email:email},'accountKey');
+                res.json({token:token});
+            }
+            else{
+                res
+                .status(403)
+                .send({token:null});
+            }
+        });
+     }).catch(function(err) {
+  console.error(err);
+  res.status(403)
+  .send("Admin not found");
+});
+})
+
+// Function that returns admin information 
+app.get('/adminDetails', authorize, (req,res) => {
+    let email = req.decoded.email;
+    Admin
+    .where({email :email})
+    .fetch()
+    .then(admin=>{
+         res.json(admin.attributes);
+         //res.json(account.attributes.name);
+        //console.log(account.attributes.name);
+    })
+});
 
 // Function that returns user account information 
 app.get('/quizHome', authorize, (req,res) => {

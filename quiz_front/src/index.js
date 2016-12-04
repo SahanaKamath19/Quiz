@@ -5,6 +5,8 @@ import Account from './Account';
 import Login from './Login';
 import QuizHome from './QuizHome';
 import ScoreHistory from './ScoreHistory';
+import AdminLogin from './AdminLogin';
+import AdminHome from './AdminHome';
 import './index.css';
 
 ReactDOM.render(
@@ -13,6 +15,8 @@ ReactDOM.render(
         <Route path="/account" component={Account} />
         <Route path="/Home" component={QuizHome} />
         <Route path="/score" component={ScoreHistory} />
+        <Route path="/admin" component={AdminLogin} />
+        <Route path="/adminHome" component={AdminHome} />
     </Router>,
   document.getElementById('root')
 );
