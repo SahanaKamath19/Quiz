@@ -114,3 +114,6 @@ margin: 20px;
 .hidden{
   display: none;
 }
+.report-list:hover{
+  color: #94618E;
+}

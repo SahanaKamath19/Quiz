@@ -39,6 +39,9 @@ const bookshelf = require('bookshelf')(knex);
 
 const Account = bookshelf.Model.extend({
     tableName: 'userAccount',
+    score: function(){
+        return this.hasMany(Score);
+    }
 })
 
 const Admin = bookshelf.Model.extend({
@@ -47,8 +50,8 @@ const Admin = bookshelf.Model.extend({
 
 const Score = bookshelf.Model.extend({
     tableName: 'scoreCard',
-    user: function() {
-        return this.belongsTo(userAccount)
+    account: function() {
+        return this.belongsTo(Account)
     }
 })
 
@@ -280,6 +283,19 @@ app.get('/complexityThreeQuestion',(req,res) => {
         //console.log(questions.models.map(questions => questions.attributes));
 	})
 });
+
+//Function returns top 10 users with highest score
+app.get('/highestScore',(req,res)=>{
+    Score
+    .where({recent_score:true})
+    .query('limit','10')
+    .orderBy('score','DESC')
+    .fetchAll()
+    .then(score=>{
+        res.json(score.models.map(score => score.attributes));
+        console.log(score.models.map(score => score.attributes));
+    })
+})
 
 app.get('*', function(req, res) {
     res.sendFile((__dirname+'/build/index.html'));

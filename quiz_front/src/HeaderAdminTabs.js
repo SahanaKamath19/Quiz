@@ -25,7 +25,10 @@ class HeaderAdminTabs extends Component {
                <span className="caret"></span></button>
                 <ul className="dropdown-menu menu-style">
                 <li><Link to="/adminHome">Home</Link></li>
-                <li><Link to="/modifyQuestions">Questions</Link></li>
+                <li><Link to="/allQuestions">Questions</Link></li>
+                <li><Link to="/addQuestions">Add Questions</Link></li>
+                <li><Link to="/deleteQuestions">Delete Questions</Link></li>
+                <li><Link to="/report">Report</Link></li>
                 <li><Link to="/admin" onClick={this.logout}>Logout</Link></li>
               </ul>
           </div>

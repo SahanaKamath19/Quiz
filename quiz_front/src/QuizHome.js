@@ -269,7 +269,11 @@ retake(){
             <h3 className="Instructions-header Dark-purple-text text-center">Instructions:</h3>
             <p className="Dark-purple-text Instructions-text text-center">This Quiz tests your knowledge on HTML, CSS, Javascript and React</p>
             <ul className="Dark-purple-text Instructions-text">
-              <li className="Instructions-list">There are 30 questions. A correct answers adds one point.</li>
+              <li className="Instructions-list">There are 30 questions.</li>
+              <li className="Instructions-list">You will earn one point when your total score is between 1 and 10</li>
+              <li className="Instructions-list">You will earn one bonous point when your total score is between 10 and 30</li>
+              <li className="Instructions-list">You will earn two bonous points when your total score is between 30 and 60</li>
+              <li className="Instructions-list">You can earn upto 60 points</li>
               <li className="Instructions-list">Quiz should be completed within 20 minutes</li>
             </ul>
             <input type="submit" value="Start Quiz" className="form-btn btn Dark-purple Button-style center-block" onClick={this.startQuiz}/>
