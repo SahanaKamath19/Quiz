@@ -27,7 +27,6 @@ class HeaderAdminTabs extends Component {
                 <li><Link to="/adminHome">Home</Link></li>
                 <li><Link to="/allQuestions">Questions</Link></li>
                 <li><Link to="/addQuestions">Add Questions</Link></li>
-                <li><Link to="/deleteQuestions">Delete Questions</Link></li>
                 <li><Link to="/report">Report</Link></li>
                 <li><Link to="/admin" onClick={this.logout}>Logout</Link></li>
               </ul>

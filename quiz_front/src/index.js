@@ -10,7 +10,6 @@ import AdminHome from './AdminHome';
 import AllQuestions from './AllQuestions';
 import AddQuestions from './AddQuestions';
 import ModifyQuestions from './AddQuestions';
-import DeleteQuestions from './DeleteQuestions';
 import Report from './Report'
 import './index.css';
 
@@ -24,7 +23,6 @@ ReactDOM.render(
         <Route path="/adminHome" component={AdminHome} />
         <Route path="/allQuestions" component={AllQuestions} />
         <Route path="/addQuestions" component={AddQuestions} />
-        <Route path="/deleteQuestions" component={DeleteQuestions} />
         <Route path="/report" component={Report} />
     </Router>,
   document.getElementById('root')

@@ -47,20 +47,15 @@ class AdminHome extends Component {
                 <HeaderAdminTabs/>
                 <div className="container">
                 <h2 className="Purple-text Account-Login-header text-center">Welcome {this.state.data}</h2>
-                    <ul>
+                    <ul className="admin-list-style">
                         <li className="Instructions-list">
                             <Link to="/addQuestions" className="Dark-purple-text Instructions-text report-list">
                                 Add questions to DB
                             </Link>
                         </li>
                         <li className="Instructions-list">
-                            <Link to="/deleteQuestions" className="Dark-purple-text Instructions-text report-list">
-                                Delete questions from DB
-                            </Link>
-                        </li>
-                        <li className="Instructions-list">
                             <Link to="/allQuestions" className="Dark-purple-text Instructions-text report-list">
-                                View all the questions
+                                View/Delete questions from DB
                             </Link>
                         </li>
                         <li className="Instructions-list">

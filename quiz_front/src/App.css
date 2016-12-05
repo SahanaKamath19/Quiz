@@ -80,6 +80,7 @@ color: #ffffff;
 }
 .Instructions-list{
   margin-left: 20%;
+  padding-bottom: 10px;
 }
 .logo-height{
 height: 35px;
@@ -116,4 +117,7 @@ margin: 20px;
 }
 .report-list:hover{
   color: #94618E;
+}
+.admin-list-style{
+  margin-top: 55px;
 }
