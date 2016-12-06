@@ -63,7 +63,6 @@ onOptionChange(e){
                 <div className="container">
                     <h2 className="Purple-text Account-Login-header text-center">Add Questions to DB</h2>
                      <p className={"alert alert-success text-center "+ this.state.success}>Question Added to Questions table</p>
-                    <div className="container">
             <form>
                 <div className="form-group form-elements">
                     <div className="col-xs-12 col-sm-6 form-label Label Purple-text">
@@ -100,7 +99,6 @@ onOptionChange(e){
                 <input type="submit" value="Submit" className="form-btn btn Dark-purple Button-style center-block" disabled={this.state.invalidData} onClick={this.handleSubmit}/>
             </form>
             </div>
-                </div>
             </div>
         );
     }

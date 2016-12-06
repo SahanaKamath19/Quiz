@@ -289,7 +289,7 @@ retake(){
                 <span className="Dark-purple-text Label fields">Score</span>
               </div>
               <div>
-                <h4 className="Dark-purple-text">Question Number:{this.state.questionNumber}</h4>
+                <h4 className="Dark-purple-text">Question Number:{this.state.questionNumber} of 30</h4>
                 <h4 className="Dark-purple-text">Question Complexity:{this.state.questionComplexity}</h4>
               </div>
               <div>

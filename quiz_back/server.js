@@ -297,6 +297,14 @@ app.get('/highestScore',(req,res)=>{
     })
 })
 
+//Function to delete question from DB
+app.delete('/deleteQuestion',(req,res)=>{
+    console.log(req.body.id);
+// new Question({id: req.body.id})
+// .destroy()
+res.send("deleted question" + req.body.id);
+})
+
 app.get('*', function(req, res) {
     res.sendFile((__dirname+'/build/index.html'));
 });
