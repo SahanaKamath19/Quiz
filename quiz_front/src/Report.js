@@ -41,7 +41,7 @@ class Report extends Component {
                               <div className="row score-style">
                                 <div className="col-sm-1 text-center score-body Dark-purple-text">{index+1}</div>
                                 <div className="col-sm-2 text-center score-body Dark-purple-text">{item.user_id}</div>
-                                <div className="col-sm-7 text-center score-body Dark-purple-text">User Name</div>
+                                <div className="col-sm-7 text-center score-body Dark-purple-text">{item.userAccount.name}</div>
                                 <div className="col-sm-2 text-center score-body Dark-purple-text">{item.score}</div>
                              </div>
                           )

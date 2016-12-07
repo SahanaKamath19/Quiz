@@ -50,8 +50,8 @@ const Admin = bookshelf.Model.extend({
 
 const Score = bookshelf.Model.extend({
     tableName: 'scoreCard',
-    account: function() {
-        return this.belongsTo(Account)
+    userAccount: function() {
+        return this.belongsTo(Account,'user_id')
     }
 })
 
@@ -290,19 +290,25 @@ app.get('/highestScore',(req,res)=>{
     .where({recent_score:true})
     .query('limit','10')
     .orderBy('score','DESC')
-    .fetchAll()
+    .fetchAll({withRelated:['userAccount'],require:true})
     .then(score=>{
-        res.json(score.models.map(score => score.attributes));
-        console.log(score.models.map(score => score.attributes));
+        //console.log(score.models[0].relations.userAccount.attributes);
+        //res.json(score.models.map(score => score.attributes));
+        //console.log(score.models.map(score => score.relations.userAccount.attributes));
+        res.json(score);
+        console.log(res.score);
     })
 })
 
 //Function to delete question from DB
-app.delete('/deleteQuestion',(req,res)=>{
-    console.log(req.body.id);
-// new Question({id: req.body.id})
-// .destroy()
-res.send("deleted question" + req.body.id);
+app.delete('/deleteQuestion/:id',(req,res)=>{
+    console.log(req.params.id);
+Question
+.where({id: req.params.id})
+.destroy()
+.then(()=>{
+    res.send("deleted question" + req.params.id);
+})
 })
 
 app.get('*', function(req, res) {

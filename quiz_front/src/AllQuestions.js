@@ -66,7 +66,9 @@ delete(e){
     this.setState({
         id:id
     })
-axios.delete('/deleteQuestion',{id:this.state.id})
+axios.delete('/deleteQuestion/'+id).then(()=>{
+        location.reload();
+    })
     }   
 
     render(){

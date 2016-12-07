@@ -93,7 +93,7 @@ onOptionChange(e){
                     <label for="options">Options:</label>
                     </div>
                     <div className="col-xs-12 col-sm-6">
-                    <input type="text" className="form-control fields" id="options" value={this.state.options} onChange={this.onOptionChange}/>
+                    <input type="text" className="form-control fields" id="options" placeholder="E.g. [&quot;<head>&quot;,&quot;<title>&quot;,&quot;<html>&quot;,&quot;<document>&quot;]" value={this.state.options} onChange={this.onOptionChange}/>
                     </div>
                 </div>
                 <input type="submit" value="Submit" className="form-btn btn Dark-purple Button-style center-block" disabled={this.state.invalidData} onClick={this.handleSubmit}/>
