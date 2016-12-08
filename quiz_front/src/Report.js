@@ -27,7 +27,7 @@ class Report extends Component {
         return(
             <div>
                 <HeaderAdminTabs />
-                <h2 className="container Dark-purple-text Instructions-header text-center">Top 10 Scores</h2>
+                <h2 className="Purple-text Account-Login-header text-center">Top 10 Scores</h2>
                 <div className="Score-page-body container" id="score-page-body">
                     <div className="row score-style">
                         <div className="col-sm-1 text-center score-header Dark-purple-text">Rank</div>

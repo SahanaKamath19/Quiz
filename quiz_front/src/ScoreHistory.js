@@ -51,6 +51,7 @@ componentDidUpdate(){
         return(
             <div>
                 <HeaderTabs />
+                <h2 className="Purple-text Account-Login-header text-center">Your Score History</h2>
                  <div className="Score-page-body container" id="score-page-body">
                  <div className="row score-style">
                     <div className="col-sm-2 text-center score-header Dark-purple-text">SN</div>

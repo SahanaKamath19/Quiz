@@ -82,13 +82,13 @@ axios.delete('/deleteQuestion/'+id).then(()=>{
                 <div className="row">
                 <form>
                 <div className="col-xs-12 col-sm-4">
-                    <input type="submit" value="Complexity One Questions" className="form-btn btn Dark-purple Button-style" onClick={this.complexityOne}/>
+                    <input type="submit" value="Complexity One Questions" className="form-btn btn Dark-purple Button-style score-body" onClick={this.complexityOne}/>
                 </div>
                 <div className="col-xs-12 col-sm-4">
-                   <input type="submit" value="Complexity Two Questions" className="form-btn btn Dark-purple Button-style center-block" onClick={this.complexityTwo}/>
+                   <input type="submit" value="Complexity Two Questions" className="form-btn btn Dark-purple Button-style center-block score-body" onClick={this.complexityTwo}/>
                 </div>
                 <div className="col-xs-12 col-sm-4">
-                    <input type="submit" value="Complexity Three Questions" className="form-btn btn Dark-purple Button-style pull-right" onClick={this.complexityThree}/>
+                    <input type="submit" value="Complexity Three Questions" className="form-btn btn Dark-purple Button-style pull-right score-body" onClick={this.complexityThree}/>
                 </div>
                 </form>  
                 </div> 
@@ -103,9 +103,9 @@ axios.delete('/deleteQuestion/'+id).then(()=>{
                       .map((item,index)=>{
                           return(
                               <div className=" row score-style questions-style">
-                                <div className="col-sm-1  Dark-purple-text">{item.id}</div>
-                                <div className="col-sm-7  Dark-purple-text">{item.question_description}</div>
-                                <div className="col-sm-3  Dark-purple-text">{item.correct_answer}</div>
+                                <div className="col-sm-1  score-body Dark-purple-text">{item.id}</div>
+                                <div className="col-sm-7  score-body Dark-purple-text">{item.question_description}</div>
+                                <div className="col-sm-3  score-body Dark-purple-text">{item.correct_answer}</div>
                                 <div className="col-sm-1">
                                 <button type="button" className="btn btn-danger" value={item.id} onClick={this.delete}>Delete</button>
                                 </div>

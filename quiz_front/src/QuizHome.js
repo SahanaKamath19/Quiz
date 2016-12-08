@@ -14,7 +14,7 @@ class QuizHome extends Component{
     //correctScore will update each time the user submits correct answer
     //wrongScore will increase each time user submits wrong answer 
     //questionNumber will update each time the user hits submits
-    //randomArray will create random array between 1 to 30 
+    //randomArray will create random array between 1 to 5 
     //questionRequest integer that will inhirit value from random array 
     this.state = {
         data:null,
@@ -138,11 +138,11 @@ startQuiz(e){
   axios.post('/scoreSet',{state:this.state}).then((res)=>{
        console.log("saved the record");
      })
-  this.countdown("countdown",20,0);// calls the countdown function 
+  this.countdown("countdown",2,0);// calls the countdown function 
   
 }
 
-//Timer Function: this function will count down from 20 minutes to 0 and displays score section 
+//Timer Function: this function will count down from 2 minutes to 0 and displays score section 
 countdown(elementName, minutes, seconds){
         let element, endTime,hours,mins, msRemaining, time;
         function twoDigits( n ){
@@ -184,13 +184,13 @@ submitAnswer(e){
    let wrongScore = this.state.wrongScore;
 
   //Function to access questions with complexity 1 
-  if(this.state.correctScore == 10){
+  if(this.state.correctScore == 2){
        randomArray = this.randomNumberGenerator(this.state.complexityTwoArray);
         questionComplexity = 2;
         random=randomArray[0];
         questionCount = 0;
         complexityArray= this.state.complexityTwoArray;
-  }else if(this.state.correctScore == 30){
+  }else if(this.state.correctScore == 4){
       randomArray = this.randomNumberGenerator(this.state.complexityThreeArray);
         questionComplexity = 3;
         random=randomArray[0];
@@ -200,11 +200,11 @@ submitAnswer(e){
   
   //match the user input with actual answer
   if(this.state.selectedValue===this.state.correctAnswer){
-    if(this.state.correctScore<10){
+    if(this.state.correctScore<2){
       correctScore = correctScore+1;
-    }else if(this.state.correctScore>=10 && this.state.correctScore<30){
+    }else if(this.state.correctScore>=2 && this.state.correctScore<=4){
       correctScore = correctScore+2;
-    }else if(this.state.correctScore>=30){
+    }else if(this.state.correctScore>=4){
       correctScore = correctScore+3;
     }   
   }else{
@@ -232,7 +232,7 @@ submitAnswer(e){
   })
   
 //This function should direct user to score page once it's created
-   if(this.state.questionNumber>=30){
+   if(this.state.questionNumber>=5){
      this.setState({
        showScore:true,
        showQuestion:false,
@@ -269,12 +269,12 @@ retake(){
             <h3 className="Instructions-header Dark-purple-text text-center">Instructions:</h3>
             <p className="Dark-purple-text Instructions-text text-center">This Quiz tests your knowledge on HTML, CSS, Javascript and React</p>
             <ul className="Dark-purple-text Instructions-text">
-              <li className="Instructions-list">There are 30 questions.</li>
-              <li className="Instructions-list">You will earn one point when your total score is between 1 and 10</li>
-              <li className="Instructions-list">You will earn one bonous point when your total score is between 10 and 30</li>
-              <li className="Instructions-list">You will earn two bonous points when your total score is between 30 and 60</li>
-              <li className="Instructions-list">You can earn upto 60 points</li>
-              <li className="Instructions-list">Quiz should be completed within 20 minutes</li>
+              <li className="Instructions-list">There are 5 questions.</li>
+              <li className="Instructions-list">You will earn one point when your total score is between 1 and 2</li>
+              <li className="Instructions-list">You will earn one bonous point when your total score is between 2 and 6</li>
+              <li className="Instructions-list">You will earn two bonous points when your total score is between 6 and 9</li>
+              <li className="Instructions-list">You can earn upto 9 points</li>
+              <li className="Instructions-list">Quiz should be completed within 2 minutes</li>
             </ul>
             <input type="submit" value="Start Quiz" className="form-btn btn Dark-purple Button-style center-block" onClick={this.startQuiz}/>
           </div>
@@ -289,7 +289,7 @@ retake(){
                 <span className="Dark-purple-text Label fields">Score</span>
               </div>
               <div>
-                <h4 className="Dark-purple-text">Question Number:{this.state.questionNumber} of 30</h4>
+                <h4 className="Dark-purple-text">Question Number:{this.state.questionNumber} of 5</h4>
                 <h4 className="Dark-purple-text">Question Complexity:{this.state.questionComplexity}</h4>
               </div>
               <div>
@@ -315,7 +315,7 @@ retake(){
 
            {/* Score Section*/}
            <div className={this.state.showScore? 'Home-page-body container':'hidden'} id="score-body">
-            <h2 className="Purple-text Account-Login-header text-center">{this.state.data} You scored {this.state.correctScore}/60 </h2>
+            <h2 className="Purple-text Account-Login-header text-center">{this.state.data} You scored {this.state.correctScore}/9 </h2>
             <p className="Dark-purple-text Label fields text-center">Total number of question answered: {this.state.questionNumber-1}</p>
             <p className="Dark-purple-text Label fields text-center">Total number of wrong answers: {this.state.wrongScore}</p>
             <input type="submit" value="Retake Quiz" className="form-btn btn Dark-purple Button-style center-block" onClick={this.retake}/>
