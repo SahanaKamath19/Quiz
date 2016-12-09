@@ -81,7 +81,7 @@ app.post('/encrypt', (req, res) => {
 });
 
 //Update the database with admin information 
-app.post('/adminEncrypt', (req, res) => {
+app.post('/admin/encrypt', (req, res) => {
     console.log("Details from admin" +" "+req.body.name +" "+req.body.email +" "+ req.body.password);
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(req.body.password, salt, (err, hash) => {
