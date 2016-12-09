@@ -59,48 +59,6 @@ const Question = bookshelf.Model.extend({
     tableName: 'question',
 })
 
-//Update the database with user information 
-app.post('/encrypt', (req, res) => {
-    console.log("Details from account" +" "+req.body.name +" "+req.body.email +" "+ req.body.password);
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(req.body.password, salt, (err, hash) => {
-            if (err) throw err;
-            //Add record to database with hashed password
-        const newAccount = new Account({
-            name: req.body.name,
-            email: req.body.email,
-            password: hash,
-            })
-            newAccount.save()
-            .then(account => {
-            console.log(account)
-        })
-    res.send("Update Account");
-        });
-    });
-});
-
-//Update the database with admin information 
-app.post('/admin/encrypt', (req, res) => {
-    console.log("Details from admin" +" "+req.body.name +" "+req.body.email +" "+ req.body.password);
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(req.body.password, salt, (err, hash) => {
-            if (err) throw err;
-            //Add record to database with hashed password
-        const newAdmin = new Admin({
-            name: req.body.name,
-            email: req.body.email,
-            password: hash,
-            })
-            newAdmin.save()
-            .then(admin => {
-            console.log(admin)
-        })
-    res.send("Update Admin User");
-        });
-    });
-});
-
 //login verification for users
 app.post('/', (req,res) => {
     let email = req.body.email;
@@ -128,6 +86,51 @@ app.post('/', (req,res) => {
   .send("Account not found");
 });
 })
+
+//Update the database with user information 
+app.post('/encrypt', (req, res) => {
+    console.log("Details from account" +" "+req.body.name +" "+req.body.email +" "+ req.body.password);
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
+            if (err) throw err;
+            //Add record to database with hashed password
+        const newAccount = new Account({
+            name: req.body.name,
+            email: req.body.email,
+            password: hash,
+            })
+            newAccount.save()
+            .then(account => {
+            console.log(account)
+        })
+    res.send("Update Account");
+        });
+    });
+});
+
+
+//Update the database with admin information 
+app.post('/admin/encrypt', (req, res) => {
+    console.log("Details from admin" +" "+req.body.name +" "+req.body.email +" "+ req.body.password);
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
+            if (err) throw err;
+            //Add record to database with hashed password
+        const newAdmin = new Admin({
+            name: req.body.name,
+            email: req.body.email,
+            password: hash,
+            })
+            newAdmin.save()
+            .then(admin => {
+            console.log(admin)
+        })
+    res.send("Update Admin User");
+        });
+    });
+});
+
+
 
 //login verification for admins
 app.post('/adminLogin', (req,res) => {
