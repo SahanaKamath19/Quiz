@@ -50,12 +50,12 @@ class AdminHome extends Component {
                     <ul className="admin-list-style">
                         <li className="Instructions-list">
                             <Link to="/addQuestions" className="Dark-purple-text Instructions-text report-list">
-                                Add questions to DB
+                                Add questions
                             </Link>
                         </li>
                         <li className="Instructions-list">
                             <Link to="/allQuestions" className="Dark-purple-text Instructions-text report-list">
-                                View/Delete questions from DB
+                                View / Delete questions 
                             </Link>
                         </li>
                         <li className="Instructions-list">

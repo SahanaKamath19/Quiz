@@ -69,7 +69,7 @@ onOptionChange(e){
                     <label for="question_description">Question Description:</label>
                     </div>
                     <div className="col-xs-12 col-sm-6">
-                    <input type="text" className="form-control fields" id="question_description" placeholder="E.g. What should be the first tag in any HTML document?" value={this.state.question_description} onChange={this.onQuestionDescriptionChange}/>
+                    <input type="text" className="form-control fields" id="question_description" placeholder="E.g. Which of the operator is used to test if a particular property exists or not?" value={this.state.question_description} onChange={this.onQuestionDescriptionChange}/>
                     </div>
                 </div>
                 <div className="form-group form-elements">
@@ -77,7 +77,7 @@ onOptionChange(e){
                     <label for="correct_answer">Correct Answer:</label>
                     </div>
                     <div className="col-xs-12 col-sm-6">
-                    <input type="text" className="form-control fields" id="correct_answer" placeholder="E.g. <html>" value={this.state.correct_answer} onChange={this.onCorrectAnswerChange}/>
+                    <input type="text" className="form-control fields" id="correct_answer" placeholder="E.g. in" value={this.state.correct_answer} onChange={this.onCorrectAnswerChange}/>
                     </div>
                 </div>
                 <div className="form-group form-elements">
@@ -93,7 +93,7 @@ onOptionChange(e){
                     <label for="options">Options:</label>
                     </div>
                     <div className="col-xs-12 col-sm-6">
-                    <input type="text" className="form-control fields" id="options" placeholder="E.g. [&quot;<head>&quot;,&quot;<title>&quot;,&quot;<html>&quot;,&quot;<document>&quot;]" value={this.state.options} onChange={this.onOptionChange}/>
+                    <input type="text" className="form-control fields" id="options" placeholder="E.g. [&quot;in&quot;,&quot;exist&quot;,&quot;within&quot;,&quot;exists&quot;]" value={this.state.options} onChange={this.onOptionChange}/>
                     </div>
                 </div>
                 <input type="submit" value="Submit" className="form-btn btn Dark-purple Button-style center-block" disabled={this.state.invalidData} onClick={this.handleSubmit}/>
