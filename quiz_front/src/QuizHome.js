@@ -271,8 +271,8 @@ retake(){
             <ul className="Dark-purple-text Instructions-text">
               <li className="Instructions-list">There are 5 questions.</li>
               <li className="Instructions-list">You will earn one point when your total score is between 1 and 2</li>
-              <li className="Instructions-list">You will earn one bonous point when your total score is between 2 and 6</li>
-              <li className="Instructions-list">You will earn two bonous points when your total score is between 6 and 9</li>
+              <li className="Instructions-list">You will earn one bonus point when your total score is between 2 and 6</li>
+              <li className="Instructions-list">You will earn two bonus points when your total score is between 6 and 9</li>
               <li className="Instructions-list">You can earn upto 9 points</li>
               <li className="Instructions-list">Quiz should be completed within 2 minutes</li>
             </ul>
